@@ -12,11 +12,12 @@ Pro Kunde werden nur die Konstanten (Variablen vom Typ "Konstante") ersetzt.
 values.json = {"C - GA4 Measurement ID": "G-ABC123", "C - Meta Pixel ID": "123", ...}
 Nur Standardbibliothek.
 """
-import argparse, json, os, sys, datetime, tempfile
+import argparse, json, os, sys, datetime, tempfile, hashlib
 
 SECRET_HINTS = ("token", "secret", "key", "password", "passwort", "credential",
                 "access", "api", "auth", "bearer", "signature")
 PLACEHOLDER_HINTS = ("XXXX", "YYYY", "YOUR ", "REPLACE", "TODO", "PLATZHALTER", "<", "CHANGEME")
+PLACEHOLDER_RE = __import__("re").compile(r"^__[A-Z0-9_]+__$")
 
 
 def is_secret(name):
@@ -25,7 +26,8 @@ def is_secret(name):
 
 
 def looks_like_placeholder(val):
-    return any(h in str(val).upper() for h in PLACEHOLDER_HINTS)
+    text = str(val).strip()
+    return bool(PLACEHOLDER_RE.fullmatch(text)) or any(h in text.upper() for h in PLACEHOLDER_HINTS)
 
 
 def write_atomic(path, data):
@@ -64,11 +66,40 @@ def main():
     ap.add_argument("--allow-inherited", action="store_true",
                     help="bestehende Werte nicht ersetzter Konstanten bewusst uebernehmen")
     ap.add_argument("--name", help="neuer Containername im Import (optional)")
+    ap.add_argument("--verified-manifest", help="Manifest aus gtm_master_verify.py; Hash und Typ muessen zum Master passen")
+    ap.add_argument("--candidate-only", action="store_true", help="nur zum erstmaligen GTM-Importkandidaten; erlaubt Server-Master ohne Verified-Manifest")
     a = ap.parse_args()
+
+    def _sha(path):
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    manifest = None
+    if a.verified_manifest:
+        manifest = json.load(open(a.verified_manifest, encoding="utf-8"))
+        if manifest.get("status") != "verified_by_gtm_import_roundtrip":
+            sys.exit("ABBRUCH: Verified-Manifest hat keinen gueltigen Status.")
+        if manifest.get("candidate_sha256") != _sha(a.master) and manifest.get("roundtrip_sha256") != _sha(a.master):
+            sys.exit("ABBRUCH: Verified-Manifest gehoert nicht zu diesem Master (SHA-256 abweichend).")
 
     export = json.load(open(a.master, encoding="utf-8"))
     cv = export.get("containerVersion") or sys.exit("Keine GTM-Exportdatei (containerVersion fehlt).")
     usage = (cv.get("container") or {}).get("usageContext")
+    actual_type = "server" if "SERVER" in (usage or []) else "web" if "WEB" in (usage or []) else "unknown"
+    if a.erwarteter_typ and actual_type != a.erwarteter_typ:
+        sys.exit("ABBRUCH: Master ist Typ %s, erwartet %s." % (actual_type, a.erwarteter_typ))
+    if manifest and manifest.get("container_type") != actual_type:
+        sys.exit("ABBRUCH: Verified-Manifest-Typ passt nicht zum Master.")
+    marker = export.get("_meixnerMaster") if isinstance(export, dict) else None
+    if isinstance(marker, dict) and marker.get("status") == "candidate_reference_only" and not manifest and not a.candidate_only and not (a.list or not a.values):
+        sys.exit("ABBRUCH: Dieser mitgelieferte Core-Master ist nur candidate_reference_only. "
+                 "Fuer den Bootstrap bewusst --candidate-only verwenden; fuer Wiederverwendung zuerst echten GTM Import->Re-Export und Verified-Manifest erzeugen.")
+    if actual_type == "server" and not manifest and not a.candidate_only and not (a.list or not a.values):
+        sys.exit("ABBRUCH: Server-Master braucht ein Verified-Manifest aus echtem GTM Import->Re-Export. "
+                 "Fuer den allerersten Importkandidaten bewusst --candidate-only verwenden.")
 
     # Der Master ist eine Datei, die niemand validiert. Ein manipuliertes Custom-HTML-Tag
     # darin wanderte bisher unbesehen in den Kundencontainer. Der Scan laeuft immer,

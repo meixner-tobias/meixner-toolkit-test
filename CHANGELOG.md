@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.7.11 — 16.09.2026
+
+### Fachwissen / Entscheidungsqualitaet
+- GEO/AI Search um Googles weltweiten Generative-AI-Performance-Bericht in Search Console und OpenAI-Agent-Readiness ergaenzt. Prompt-Stichproben bleiben qualitative Zusatzmessung; ARIA/Agent-Readiness wird nicht als Rankingfaktor dargestellt.
+- Tracking bekommt ein deterministisches Completeness Gate mit konkreter Evidenzpflicht. Offene architekturrelevante Fragen, ungeklaerte Eventquellen, Consent-, E-Commerce-, Enhanced-Conversions-, Cross-Domain- oder Serverentscheidungen blockieren den Build statt geraten zu werden.
+- Zeitkritische Stape-Wissensbasis aktualisiert: Request-Dimensionierung, Pause-/Grace-Logik und Gateway-Preise werden nicht mehr mit veralteten festen Formeln/Werten beschrieben.
+
+### GTM-Master / reale Produktionsreferenz
+- Zwei reale, funktionierende Web-/Server-GTM-Exporte wurden ausschliesslich als Architekturquelle ausgewertet und vor Aufnahme vollstaendig sanitisiert. Originalexporte und Original-Secrets werden **nicht** ausgeliefert.
+- Neue Schichten: `masters/production-reference/` (sanitisierte Strukturbelege), `masters/core/` (neutraler Web-/Server-Core als Candidate) und `masters/patterns/` (Eventmuster statt Kundenlogik).
+- `reference_guard.py` blockiert bekannte Kundenwerte, secret-artige Konstanten und versehentlich als VERIFIED markierte Candidates.
+- `sanitize_gtm_reference.py` und `build_reference_assets.py` erzeugen reproduzierbare, lesbar platzhalterisierte Referenzen/Core-Candidates.
+- Core-Master erben **nie** Consent, Eventnamen, IDs, Domains, Labels, Waehrungen, CSS-Selektoren oder Businessentscheidungen des Referenzkunden. Scroll-/Engagement-Events werden insbesondere nicht automatisch zu Ads-/Meta-Conversions.
+- Ein Master wird erst nach echtem GTM Import -> Preview -> Re-Export und semantischem Roundtrip mit `gtm_master_verify.py` als VERIFIED akzeptiert. Community-Template-/interne GTM-IDs duerfen sich dabei dynamisch aendern, semantische Aenderungen nicht.
+
+### Security / Release-Integritaet
+- `fill_template.py` erkennt die neuen `__PLACEHOLDER__`-Tokens und blockiert Core-Candidates ohne Verified-Manifest oder bewussten Candidate-Bootstrap.
+- Meta-CAPI-Access-Tokens werden in Referenzartefakten nie als reale Werte gespeichert; das Toolkit fordert Tokens weiterhin nicht im Chat/Git an.
+- `gtm_master_verify.py` schreibt Verified-Manifeste exklusiv und folgt keinem vorbereiteten Symlink; der Schreibpfad ist direkt regressionsgetestet.
+- Die Regression wurde auf 15 isolierbare Testblöcke A–O gehärtet. Python-Negativtests prüfen die Produktlogik direkt und behalten gezielte CLI-Smokes; dadurch entfallen flakey Ketten vieler kurzlebiger Child-Prozesse.
+- **221/221 Regressionstests** sind in den isolierten Blöcken grün; Python-/Node-Syntax, 15 JSON-Dateien und Reference Guard sind grün. Ein echter Chromium-Lauf bleibt zusätzlich CI-Pflicht.
+- Sanitisierungs-/Referenztests, Golden-Master-Tests und Dokumentationsregressionen wurden erweitert.
+- Hardening-Nachweise unter `docs/hardening-0.7.11/`.
+
 ## 0.7.10 — 15.09.2026
 
 ### Security

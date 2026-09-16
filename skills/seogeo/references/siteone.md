@@ -57,6 +57,6 @@ Standardmäßig höflich: 2 Worker, 5 Requests/Sekunde, robots.txt wird respekti
 - Ohne `--browser` wird kein JavaScript ausgeführt. Bei SPA-Seiten sonst massenhaft Falschmeldungen („keine H1“).
 - Mit `--browser` wird jede Seite doppelt geladen (Status + Rendering), HTTP-Auth und Cookies werden nicht an den Browser weitergereicht.
 - Der Crawler erzeugt echten Traffic. Auf kleinen Hostern Worker und Rate niedrig halten, nicht während Lastspitzen crawlen, bei Kundenprojekten vorher Bescheid geben.
-- Ein Score von 10 bedeutet nicht, dass die Seite gut gefunden wird. Schwellwerte (z. B. Title-Länge) sind Richtwerte, keine Regeln.
+- Ein Score von 10 bedeutet nicht, dass die Seite gut gefunden wird. Zeichenlaengen von Title/Description sind **nur Darstellungsheuristiken**: Google definiert dafuer keine harte Zeichenobergrenze. `siteone.py` trennt solche Hinweise deshalb von echten SEO-/Indexierungsbefunden.
 - Die eingebaute KI-Funktion (`--ai-*`) braucht einen eigenen LLM-Schlüssel und kostet Geld. Wird **nicht** genutzt: Die Analyse macht der Skill selbst.
 - Versionen ändern Tabellen und Feldnamen. `siteone.py` liest tolerant; wenn Felder fehlen, die Version im Auszug prüfen (`crawler.version`).

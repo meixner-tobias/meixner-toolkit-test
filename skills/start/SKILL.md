@@ -1,17 +1,17 @@
 ---
 name: start
-description: Einstieg in meixner-toolkit – fragt, was heute für welchen Kunden erledigt werden soll (SEO, GEO, Tracking-Audit, GTM/Tracking-Setup, Go-Live-Abnahme, Kundenbericht, einzeln oder kombiniert) und führt die passenden Module in sinnvoller Reihenfolge aus. Nutzen bei /start, "was machen wir heute", "neuer Auftrag", "Kunde X bearbeiten", "Paket für Kunde".
+description: Einstieg in meixner-toolkit – fragt, was heute für welchen Kunden erledigt werden soll (SEO, GEO, Tracking-Audit, GTM/Tracking-Setup, Go-Live-Abnahme, Kundenbericht, einzeln oder kombiniert) und führt die passenden Module in sinnvoller Reihenfolge aus. Nutzen bei /meixner-toolkit:start, "was machen wir heute", "neuer Auftrag", "Kunde X bearbeiten", "Paket für Kunde".
 disable-model-invocation: true
 ---
 
-# /start – Auftrag zusammenstellen und ausführen
+# /meixner-toolkit:start – Auftrag zusammenstellen und ausführen
 
 Arbeitsweise (Fakten, Budgets, Rückfragen): `../setup/references/arbeitsweise.md`.
 
-Die einzelnen Skills bleiben direkt aufrufbar. `/start` ist der Einstieg, wenn der Auftrag gemischt oder noch unklar ist.
+Die einzelnen Skills bleiben direkt aufrufbar. `/meixner-toolkit:start` ist der Einstieg, wenn der Auftrag gemischt oder noch unklar ist.
 
 ## 1. Kontext laden
-`config.json` und Kundenliste lesen (siehe Skill `setup`). Fehlt die Konfiguration: kurz `/setup`-Check anbieten, aber nicht erzwingen.
+`config.json` und Kundenliste lesen (siehe Skill `setup`). Fehlt die Konfiguration: kurz `/meixner-toolkit:setup`-Check anbieten, aber nicht erzwingen.
 
 ## 2. Eine Frage-Runde (AskUserQuestion, max. 4 Fragen)
 1. **Kunde**: bekannte Kunden als Optionen (zuletzt bearbeitete zuerst) + „Neuer Kunde (Domain im Freitext)“.
@@ -29,7 +29,7 @@ Nicht jede Kombination einzeln auflisten – Module × Tiefe decken alle Variant
 
 ## 3. Ablaufplan zeigen, dann ausführen
 
-**Invocation-Grenze:** Die Modul-Skills sind bewusst `disable-model-invocation: true`. `/start` darf sie daher nicht als automatische Skill-Aufrufe umgehen. Nach dem expliziten Nutzerstart dieses Skills die jeweiligen `../<modul>/SKILL.md` als Workflow-Referenz lesen und die dort beschriebenen read-/script-Schritte innerhalb dieses user-initiierten Auftrags ausführen; vor jedem dort definierten eingreifenden Schritt weiterhin die geforderte Freigabe einholen.
+**Invocation-Grenze:** Die Modul-Skills sind bewusst `disable-model-invocation: true`. `/meixner-toolkit:start` darf sie daher nicht als automatische Skill-Aufrufe umgehen. Nach dem expliziten Nutzerstart dieses Skills die jeweiligen `../<modul>/SKILL.md` als Workflow-Referenz lesen und die dort beschriebenen read-/script-Schritte innerhalb dieses user-initiierten Auftrags ausführen; vor jedem dort definierten eingreifenden Schritt weiterhin die geforderte Freigabe einholen.
 
 Reihenfolge (nur gewählte Module):
 1. `launch` (falls Website neu/umgezogen) – findet Grundfehler zuerst

@@ -1,6 +1,6 @@
 # Abläufe & Befehle – meixner-toolkit
 
-Stand 15.09.2026 · Plugin-Version 0.7.10 · Für Claude Code (Windows) und die Claude-Desktop-App
+Stand 16.09.2026 · Plugin-Version 0.7.11 · Für Claude Code (Windows) und die Claude-Desktop-App
 
 **Befehlsnamen:** Plugin-Skills werden hier ausschließlich in der kanonischen namespaced Form dokumentiert, z. B. `/meixner-toolkit:seogeo` und `/meixner-toolkit:setup`. Auf nicht dokumentierte Kurzformen ohne Plugin-Präfix wird bewusst nicht vertraut.
 

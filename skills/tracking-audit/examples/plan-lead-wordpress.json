@@ -37,5 +37,31 @@
     "mode": "advanced",
     "update_event": "cookie_consent_update"
   },
-  "architecture": "browser+server"
+  "architecture": "browser+server",
+  "requirements": {
+    "gate_version": 1,
+    "open_questions": [],
+    "site_type": "mpa",
+    "primary_domain": "www.kunde.de",
+    "event_source": "listener",
+    "event_source_verified": true,
+    "conversion_success_verified": true,
+    "consent_strategy_verified": true,
+    "cross_domain": "not_required",
+    "internal_traffic": "filter",
+    "enhanced_conversions_verified": true,
+    "enhanced_conversions_source": "Formular user_data nach erfolgreichem Submit",
+    "server_strategy_verified": true,
+    "evidence": {
+      "event_source": "GTM Preview/dataLayer am reproduzierbaren Testablauf beobachtet",
+      "conversion_success": "Erfolgs-/Interaktionspunkt je Event im Testablauf beobachtet",
+      "consent_strategy": "CMP-Konfiguration und Consent-Update im Consent-Test/Preview beobachtet",
+      "enhanced_conversions": "User-Data-Quelle und Consent-Pfad im Formular/Checkout + Preview verifiziert",
+      "server_strategy": "sGTM-Zieldomain und Browser-vs-Server-Zustaendigkeit im Trackingplan verifiziert"
+    },
+    "event_evidence": {
+      "generate_lead": "GTM Preview: Event generate_lead am definierten Testpfad beobachtet",
+      "click_phone": "GTM Preview: Event click_phone am definierten Testpfad beobachtet"
+    }
+  }
 }

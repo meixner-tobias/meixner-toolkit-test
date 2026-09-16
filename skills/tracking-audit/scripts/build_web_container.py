@@ -11,6 +11,10 @@ Aufruf:  python3 build_web_container.py plan.json -o gtm-web-import.json
 Nur Standardbibliothek. Import in GTM: Verwaltung -> Container importieren -> neuer Workspace -> Zusammenführen.
 """
 import argparse, json, math, os, re, sys, tempfile, datetime
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+from lib.tracking_plan import assert_complete, assert_direct_build_supported
 
 INIT_ALL_PAGES = "2147479573"  # eingebauter Trigger "Initialization - All Pages" (in Exporten belegt)
 META_STANDARD = {"PageView", "ViewContent", "Search", "AddToCart", "AddToWishlist", "InitiateCheckout",
@@ -459,8 +463,21 @@ def main():
     ap.add_argument("--no-consent-settings", action="store_true", help="keine zusätzlichen Einwilligungsprüfungen an Meta-Tags setzen")
     a = ap.parse_args()
     plan = json.load(open(a.plan, encoding="utf-8"))
+    try:
+        assert_complete(plan)
+        assert_direct_build_supported(plan)
+    except ValueError as e:
+        sys.exit(str(e))
     b = Builder(plan, consent_settings=not a.no_consent_settings,
                 allow_placeholder=a.allow_placeholder)
+    req = plan.get("requirements") or {}
+    if req.get("internal_traffic") == "filter":
+        b.warnings.append("GA4 Internal-Traffic-Definition/Data-Filter ist eine GA4-Admin-Einstellung und nicht Bestandteil dieses GTM-JSON.")
+    pay = req.get("payment_referrals")
+    if isinstance(pay, list) and pay:
+        b.warnings.append("GA4 Unwanted Referrals fuer Payment-Domains (%s) in GA4 Admin konfigurieren; nicht Bestandteil dieses GTM-JSON." % ", ".join(pay))
+    if req.get("refund_strategy") == "manual":
+        b.warnings.append("Refunds/Stornos sind als manuell dokumentiert und werden von diesem Container nicht automatisch erfasst.")
     try:
         export = b.build()
     except PlanError as e:

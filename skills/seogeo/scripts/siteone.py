@@ -162,15 +162,22 @@ def digest(data, max_rows):
                           key=lambda x: (SEV.get(x["status"], 9), x["text"]))[:max_rows * 2],
     }
 
-    # Seiten mit SEO-Auffälligkeiten
-    seo, dupes = [], {}
+    # Seiten mit SEO-Auffälligkeiten. Fehlende/indexierungsrelevante Felder sind
+    # echte Befunde. Zeichenlaengen sind dagegen keine Google-Grenzwerte und
+    # werden deshalb nur als getrennte Darstellungsheuristik ausgegeben.
+    seo, snippet_hinweise, dupes = [], [], {}
     for r in rows(data, "seo"):
         title, desc, h1 = (r.get("title") or "").strip(), (r.get("description") or "").strip(), (r.get("h1") or "").strip()
         probleme = []
-        if not title: probleme.append("kein Title")
-        elif len(title) > 70: probleme.append("Title %d Zeichen" % len(title))
-        if not desc: probleme.append("keine Description")
-        elif len(desc) > 170: probleme.append("Description %d Zeichen" % len(desc))
+        heuristiken = []
+        if not title:
+            probleme.append("kein Title")
+        elif len(title) > 70:
+            heuristiken.append("Title relativ lang (%d Zeichen)" % len(title))
+        if not desc:
+            probleme.append("keine Description")
+        elif len(desc) > 170:
+            heuristiken.append("Description relativ lang (%d Zeichen)" % len(desc))
         if not h1: probleme.append("keine H1")
         if (r.get("robotsIndex") or "").lower().startswith("noindex") or "noindex" in (r.get("indexing") or "").lower():
             probleme.append("noindex")
@@ -179,7 +186,14 @@ def digest(data, max_rows):
         dupes.setdefault(("desc", desc), []).append(r.get("urlPathAndQuery"))
         if probleme:
             seo.append({"url": r.get("urlPathAndQuery"), "probleme": probleme, "title": title[:90], "h1": h1[:70]})
+        if heuristiken:
+            snippet_hinweise.append({
+                "url": r.get("urlPathAndQuery"),
+                "hinweise": heuristiken,
+                "einordnung": "Darstellungsheuristik; kein Google-Grenzwert und kein eigener Rankingfaktor",
+            })
     out["seo_auffaellig"] = seo[:max_rows]
+    out["snippet_darstellungsheuristiken"] = snippet_hinweise[:max_rows]
     out["seo_geprueft"] = len(rows(data, "seo"))
     out["doppelt"] = [{"art": k[0], "wert": (k[1][:60] or "(leer)"), "urls": v[:6]}
                       for k, v in dupes.items() if k[1] and len(v) > 1][:max_rows]

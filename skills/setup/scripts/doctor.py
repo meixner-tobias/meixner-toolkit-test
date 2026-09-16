@@ -124,24 +124,38 @@ def main():
         except json.JSONDecodeError:
             add("❌", "Kunde " + k.name, "ungültiges JSON", "Datei reparieren")
 
-    # Master-Container
+    # Master-Container + echte GTM-Roundtrip-Manifeste
+    import hashlib
+    def _sha256(path):
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
     for typ in ("web", "server"):
-        p = (cfg.get("master_container") or {}).get(typ)
-        if not p:
-            add("⚠️", "Master-Container " + typ, "nicht hinterlegt", "Standard-Setup in GTM exportieren, Pfad in config.json → master_container.%s" % typ)
+        mc = cfg.get("master_container") or {}
+        raw = mc.get(typ)
+        manifest_raw = mc.get(typ + "_manifest")
+        if not raw:
+            add("⚠️", "Master-Container " + typ, "nicht hinterlegt", "GTM-Export in ~/.meixner-toolkit/master ablegen; Pfad in config.json → master_container.%s" % typ)
             continue
-        p = Path(os.path.expanduser(p))
+        mp = Path(os.path.expanduser(raw))
         try:
-            usage = json.loads(p.read_text(encoding="utf-8"))["containerVersion"]["container"].get("usageContext")
+            usage = json.loads(mp.read_text(encoding="utf-8"))["containerVersion"]["container"].get("usageContext")
             erwartet = "WEB" if typ == "web" else "SERVER"
-            if erwartet in (usage or []):
-                add("✅", "Master-Container " + typ, "%s (%s)" % (p, usage))
-            else:
-                add("❌", "Master-Container " + typ,
-                    "%s enthaelt %s, erwartet wurde %s" % (p, usage, erwartet),
-                    "Pfad in config.json vertauscht? web und server pruefen")
+            if erwartet not in (usage or []):
+                add("❌", "Master-Container " + typ, "%s enthaelt %s, erwartet wurde %s" % (mp, usage, erwartet), "Pfad web/server pruefen")
+                continue
+            if not manifest_raw:
+                add("⚠️", "Master-Container " + typ, "%s – Candidate, kein GTM-Roundtrip-Manifest" % mp, "Importieren, re-exportieren, gtm_master_verify.py ausfuehren und Manifest hinterlegen")
+                continue
+            manp = Path(os.path.expanduser(manifest_raw))
+            man = json.loads(manp.read_text(encoding="utf-8"))
+            hashes = {man.get("candidate_sha256"), man.get("roundtrip_sha256")}
+            ok = man.get("status") == "verified_by_gtm_import_roundtrip" and man.get("container_type") == typ and _sha256(mp) in hashes
+            add("✅" if ok else "❌", "Master-Container " + typ, "%s – %s" % (mp, "GTM-Roundtrip verifiziert" if ok else "Manifest passt nicht"), "" if ok else "Manifest/Hash/Typ mit gtm_master_verify.py neu pruefen")
         except Exception as e:  # noqa
-            add("❌", "Master-Container " + typ, "%s: %s" % (p, e), "Pfad/Datei prüfen")
+            add("❌", "Master-Container " + typ, "%s: %s" % (mp, e), "Pfad/Datei/Manifest pruefen")
 
     # PageSpeed-Key
     key = os.environ.get("PSI_API_KEY")

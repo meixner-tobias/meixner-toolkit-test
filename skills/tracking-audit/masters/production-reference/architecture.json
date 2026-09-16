@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "status": "sanitized_production_reference",
+  "purpose": "Architecture evidence only; never copy customer configuration blindly.",
+  "reusable_core": {
+    "web": [
+      "Conversion Linker",
+      "Google Tag routed to sGTM",
+      "GA4 event tags built from per-customer plan"
+    ],
+    "server": [
+      "GA4 client",
+      "Server Conversion Linker",
+      "server-side Google Ads conversion pattern",
+      "Stape Meta CAPI template pattern"
+    ]
+  },
+  "parameterize_every_customer": [
+    "GTM/container/account IDs",
+    "GA4 Measurement ID",
+    "sGTM domain",
+    "Google Ads conversion IDs/labels",
+    "Meta Pixel ID",
+    "Meta Access Token",
+    "Meta test code",
+    "currency strategy",
+    "event names",
+    "form IDs",
+    "paths",
+    "CSS selectors",
+    "button text",
+    "consent/CMP strategy"
+  ],
+  "observed_but_not_default": [
+    "single-currency EUR",
+    "Meta CAPI adStorageConsent=optional/send-always",
+    "Meta event-name inheritance",
+    "scroll-depth forwarded to ad platforms",
+    "page/click triggers for business conversions"
+  ],
+  "preferred_new-build_rules": [
+    "Use stable success dataLayer/callbacks over click/text selectors when available.",
+    "Use recommended GA4 event names when semantics exactly match; custom otherwise.",
+    "For server-side Google Ads, avoid duplicate equivalent browser conversion tags.",
+    "For hybrid Meta browser+CAPI, use the same event_id across channels.",
+    "Consent behavior is a per-customer verified requirement, never inherited from the reference."
+  ]
+}

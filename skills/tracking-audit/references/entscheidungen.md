@@ -6,7 +6,7 @@ Stand 09/2026.
 | Situation | Empfehlung | Begründung |
 |---|---|---|
 | Nur GA4 (+ evtl. Google Ads), kleines Budget | Google Tag über GTM + CMP + Consent Mode v2; optional **Google tag gateway** über Cloudflare (kostenlos) | Deckt nur Google ab, aber ohne sGTM-Kosten (google.md) |
-| Meta Ads im Einsatz, sonst wenig | Pixel + **Stape Meta CAPI Gateway** ($10/Pixel/Monat) oder sGTM | Gateway = minimaler Aufwand, nur Meta (meta-stape.md) |
+| Meta Ads im Einsatz, sonst wenig | Pixel + **Stape Meta CAPI Gateway** oder sGTM | Gateway = minimaler Aufwand, nur Meta; Preis vor Angebot live prüfen (meta-stape.md) |
 | Mehrere Plattformen (GA4 + Ads + Meta) / Leadgen mit Budget | **sGTM auf Stape**: GA4-Transport → Server; Meta CAPI + Ads im Server; Pixel redundant mit event_id | Ein Datenstrom, Dedup, Cookie-Laufzeit |
 | Shop (WooCommerce) | GTM4WP („Track e-commerce“ an) + sGTM wie oben, Enhanced Conversions mit Bestelldaten | Standard-dataLayer (cms-recht.md) |
 | Shop (Shopify) | Stape-App oder Custom Pixel (Customer Events) + sGTM | Checkout-Skripte abgeschaltet |
@@ -15,7 +15,7 @@ Stand 09/2026.
 
 Domain-Wahl sGTM: Same Origin (Cloudflare/Proxy vorhanden) > Subdomain mit Own CDN > Subdomain mit Stape CDN (+ Cookie Keeper) > `*.stape.io`/`*.run.app` (nicht empfohlen).
 
-Stape-Plan: erwartete Requests/Monat aus GA4 (Seitenaufrufe + Events, nur mit Einwilligung) hochrechnen; Free (10k) nur für Tests.
+Stape-Plan: mit realen GA4-Eventzahlen und dem aktuellen Stape Pricing Calculator dimensionieren. Stapes grobe sGTM-Faustregel liegt bei etwa Seitenaufrufe × 10; nicht aus einer selbst erfundenen Event-Formel ableiten. Preise/Limits vor Angebot live prüfen.
 
 ## Fragenkatalog (nur stellen, was fehlt)
 **Geschäft**

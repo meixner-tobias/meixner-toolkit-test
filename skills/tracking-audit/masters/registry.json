@@ -1,0 +1,36 @@
+{
+  "schema": 2,
+  "verified_masters": [],
+  "candidate_masters": [
+    {
+      "name": "web-core-reference-v1",
+      "path": "core/web-core.candidate.json",
+      "container_type": "web",
+      "status": "candidate_reference_only"
+    },
+    {
+      "name": "server-core-reference-v1",
+      "path": "core/server-core.candidate.json",
+      "container_type": "server",
+      "status": "candidate_reference_only"
+    }
+  ],
+  "reference_assets": [
+    {
+      "name": "sanitized-production-web",
+      "path": "production-reference/web-reference.sanitized.json",
+      "status": "architecture_reference_only"
+    },
+    {
+      "name": "sanitized-production-server",
+      "path": "production-reference/server-reference.sanitized.json",
+      "status": "architecture_reference_only"
+    },
+    {
+      "name": "event-pattern-library",
+      "path": "patterns/event-patterns.json",
+      "status": "decision_patterns_not_defaults"
+    }
+  ],
+  "note": "Keine ausgelieferte Vorlage ist VERIFIED. Production References sind sanitisiert und nur Struktur-Evidenz; Core-Master bleiben Candidates bis zu echtem GTM Import/Preview/Re-Export."
+}

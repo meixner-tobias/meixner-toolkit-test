@@ -1,10 +1,10 @@
 ---
 name: wissen-update
-description: Prüft, ob sich seit dem letzten Stand etwas bei Google Search, KI-Suche, GTM/GA4/Google Ads, Consent Mode, Meta CAPI, Stape, Shopify/WooCommerce, Browser-Tracking-Schutz oder DSGVO/TDDDG geändert hat, und schlägt konkrete Updates für die Wissensdateien des Plugins vor. Nutzen bei /wissen-update, "was hat sich geändert", "Plugin aktualisieren", "Tracking-News", "SEO-News".
+description: Prüft, ob sich seit dem letzten Stand etwas bei Google Search, KI-Suche, GTM/GA4/Google Ads, Consent Mode, Meta CAPI, Stape, Shopify/WooCommerce, Browser-Tracking-Schutz oder DSGVO/TDDDG geändert hat, und schlägt konkrete Updates für die Wissensdateien des Plugins vor. Nutzen bei /meixner-toolkit:wissen-update, "was hat sich geändert", "Plugin aktualisieren", "Tracking-News", "SEO-News".
 disable-model-invocation: true
 ---
 
-# /wissen-update – Wissensdateien aktuell halten
+# /meixner-toolkit:wissen-update – Wissensdateien aktuell halten
 
 Arbeitsweise (Fakten, Budgets, Rückfragen): `../setup/references/arbeitsweise.md`.
 

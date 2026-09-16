@@ -1,0 +1,175 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "SANITIZED_REFERENCE",
+  "containerVersion": {
+    "path": "__REFERENCE_GTM_PATH__",
+    "accountId": "__REFERENCE_ACCOUNT_ID__",
+    "containerId": "__REFERENCE_CONTAINER_ID__",
+    "containerVersionId": "0",
+    "container": {
+      "path": "__REFERENCE_GTM_PATH__",
+      "accountId": "__REFERENCE_ACCOUNT_ID__",
+      "containerId": "__REFERENCE_CONTAINER_ID__",
+      "name": "Meixner Toolkit || Web Core Candidate",
+      "publicId": "GTM-REFERENCE-WEB",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "0",
+      "tagManagerUrl": "https://tagmanager.google.com/",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-REFERENCE-WEB"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "3",
+        "name": "Conversion Linker - Reference",
+        "type": "gclidw",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableUrlPassthrough",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableCookieOverrides",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "15",
+        "name": "Google Tag - Reference",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "{{Const - Google Mess ID}}"
+          },
+          {
+            "type": "LIST",
+            "key": "configSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "server_container_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{Const - sGTM URL}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "trigger": [],
+    "variable": [
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "variableId": "23",
+        "name": "Const - Google Mess ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "formatValue": {}
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "variableId": "9001",
+        "name": "Const - sGTM URL",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "__SGTM_URL__"
+          }
+        ],
+        "formatValue": {}
+      }
+    ],
+    "builtInVariable": [],
+    "fingerprint": "0",
+    "tagManagerUrl": "https://tagmanager.google.com/"
+  },
+  "_meixnerReference": {
+    "schema": 1,
+    "sanitized": true,
+    "type": "web",
+    "purpose": "architecture_reference_only"
+  },
+  "_meixnerMaster": {
+    "schema": 1,
+    "status": "candidate_reference_only",
+    "type": "web-core",
+    "source": "sanitized production reference",
+    "verified": false,
+    "warning": "Nicht als VERIFIED behandeln. Vor Kundeneinsatz GTM Import -> Preview -> Re-Export -> gtm_master_verify.py."
+  }
+}

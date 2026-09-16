@@ -1,6 +1,6 @@
 ---
 name: kundenbericht
-description: Erstellt aus SEO-, GEO-, Tracking- oder Launch-Audits einen persönlichen Kundenbericht im Briefstil – als interaktive HTML-Seite im Design von meixner-tobias.com, mit allen gefundenen Punkten als aufklappbare Liste (Problem, Folge, Nachweis, Aufwand), PDF nur auf Wunsch. Nutzen bei /kundenbericht, "Bericht für den Kunden", "Kundenversion", "Report schicken", "daraus ein PDF machen".
+description: Erstellt aus SEO-, GEO-, Tracking- oder Launch-Audits einen persönlichen Kundenbericht im Briefstil – als interaktive HTML-Seite im Design von meixner-tobias.com, mit allen gefundenen Punkten als aufklappbare Liste (Problem, Folge, Nachweis, Aufwand), PDF nur auf Wunsch. Nutzen bei /meixner-toolkit:kundenbericht, "Bericht für den Kunden", "Kundenversion", "Report schicken", "daraus ein PDF machen".
 disable-model-invocation: true
 ---
 
@@ -13,7 +13,7 @@ Rolle: Tobias selbst, der einem Kunden ohne Fachwissen schreibt. Ruhig, konkret,
 3. Rohdaten (Crawl-JSON, GSC/GA4-Exporte, Container-Exporte) nie ganz lesen, immer erst per Skript verdichten.
 4. Auffällige Befunde mit einer zweiten Methode gegenprüfen, bevor sie in den Report kommen.
 5. Fragen bündeln (eine Runde, max. 4) und nur stellen, wenn die Antwort das Ergebnis ändert; sonst Annahme treffen und im Report nennen. Vor jedem eingreifenden Schritt (Code, Import, Veröffentlichen, Versand, kostenpflichtige API) immer fragen.
-# /kundenbericht – persönlicher Bericht statt Tool-Report
+# /meixner-toolkit:kundenbericht – persönlicher Bericht statt Tool-Report
 
 > **Windows:** Statt `python3` `py -3` verwenden (bzw. `python`), Pfade mit Anführungszeichen. Node-Skripte laufen unverändert.
 
@@ -30,7 +30,7 @@ Der Bericht ist ein **Brief von Tobias**, kein Dashboard. Er soll neugierig mach
 
 **Die Lösung bleibt im Standard außen vor.** Der Kunde sieht vollständig, *was* nicht stimmt, *was es ihn kostet* und *dass es belegt ist* – nicht, wie es behoben wird. Also keine Maßnahmen, keine Tool-, Datei- oder Einstellungsnamen, keine Code-Hinweise, auch nicht im `nachweis`: dort steht der **Beleg** (Messwert, Werkzeug, Datum).
 
-**PDF nur auf Wunsch** („mach mir das noch als PDF“): denselben Aufruf mit `--pdf <datei>.pdf` wiederholen. Dauert Sekunden, gleiche Daten, alle Punkte aufgeklappt, mit Seitenzahlen. Braucht Playwright (siehe `/setup`); fehlt es, bleibt es beim HTML. Druckt der Kunde die HTML-Datei selbst (Strg + P), klappt sie sich vorher automatisch auf.
+**PDF nur auf Wunsch** („mach mir das noch als PDF“): denselben Aufruf mit `--pdf <datei>.pdf` wiederholen. Dauert Sekunden, gleiche Daten, alle Punkte aufgeklappt, mit Seitenzahlen. Braucht Playwright (siehe `/meixner-toolkit:setup`); fehlt es, bleibt es beim HTML. Druckt der Kunde die HTML-Datei selbst (Strg + P), klappt sie sich vorher automatisch auf.
 
 ## Aufbau (in dieser Reihenfolge)
 1. Briefkopf mit Kontaktwegen (Mail, Telefon, Website anklickbar)
@@ -53,11 +53,11 @@ Folgt meixner-tobias.com, damit der Bericht erkennbar von Tobias kommt (Stand 09
 ## Aufrufe
 | Eingabe | Bedeutung |
 |---|---|
-| `/kundenbericht` | alle Punkte als HTML für den zuletzt geprüften Kunden |
-| `/kundenbericht <kunde\|pfad>` | derselbe Bericht für diesen Kunden / diese `audit.json` |
-| `/kundenbericht --voll` | zusätzlich mit Maßnahmen (beauftragte Kunden) |
-| `/kundenbericht --teaser` | Kurzfassung für den Erstkontakt (`--top N` für mehr Punkte) |
-| `/kundenbericht pdf` (auch „mach das noch als PDF“) | letzten Aufruf mit `--pdf` wiederholen, nichts neu schreiben, nichts neu recherchieren |
+| `/meixner-toolkit:kundenbericht` | alle Punkte als HTML für den zuletzt geprüften Kunden |
+| `/meixner-toolkit:kundenbericht <kunde\|pfad>` | derselbe Bericht für diesen Kunden / diese `audit.json` |
+| `/meixner-toolkit:kundenbericht --voll` | zusätzlich mit Maßnahmen (beauftragte Kunden) |
+| `/meixner-toolkit:kundenbericht --teaser` | Kurzfassung für den Erstkontakt (`--top N` für mehr Punkte) |
+| `/meixner-toolkit:kundenbericht pdf` (auch „mach das noch als PDF“) | letzten Aufruf mit `--pdf` wiederholen, nichts neu schreiben, nichts neu recherchieren |
 
 ## Ablauf
 1. **Quellen**: `audit.json` des Kunden (Projektordner oder `~/.meixner-toolkit/audits/<slug>/`); ohne Angabe die neuesten je Typ. Nur Markdown vorhanden → JSON nach `references/audit-schema.md` ableiten, ohne neue Behauptungen.

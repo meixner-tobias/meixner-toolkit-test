@@ -43,6 +43,8 @@
   },
   "master_container": {
     "web": "",
-    "server": ""
+    "web_manifest": "",
+    "server": "",
+    "server_manifest": ""
   }
 }

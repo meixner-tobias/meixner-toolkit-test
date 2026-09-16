@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "status": "reference_patterns_not_defaults",
+  "principles": [
+    "Erst den realen Erfolgs-/Interaktionspunkt verifizieren, dann Event benennen und Tagging erzeugen.",
+    "Production Reference ist Evidenz fuer ein funktionierendes Muster, keine Soll-Konfiguration fuer andere Kunden.",
+    "Kunden-IDs, Domains, Labels, Consent-Entscheidungen, Waehrungen, CSS/Pfade und Business-Events nie uebernehmen.",
+    "Google Ads bei serverseitiger Conversion-Messung nicht parallel als gleichartige Browser-Conversion doppeln.",
+    "Meta Browser + CAPI nur mit identischem event_name und stabil gleicher event_id zur Deduplizierung.",
+    "Marketing-Consent nie aus dem Referenzsetup erben; pro Kunde/CMP/Region verifizieren."
+  ],
+  "patterns": {
+    "purchase": {
+      "canonical_ga4_event": "purchase",
+      "source": "verified purchase-success event/dataLayer; source event name is site-specific",
+      "required_fields": [
+        "transaction_id",
+        "value",
+        "currency",
+        "items"
+      ],
+      "web": [
+        "GA4 event tag",
+        "send ecommerce from verified dataLayer",
+        "route through verified sGTM transport when architecture=server"
+      ],
+      "server": [
+        "GA4 client receives purchase",
+        "Google Ads conversion tag may read ecommerce fields automatically",
+        "Meta CAPI Purchase only when requested/consented"
+      ],
+      "defaults_forbidden": [
+        "fixed EUR",
+        "copied transaction IDs",
+        "copied Ads label",
+        "copied Meta Pixel/Token"
+      ]
+    },
+    "start_trial": {
+      "canonical_ga4_event": "start_trial",
+      "source": "verified trial activation/success, not a guessed CTA click",
+      "server_destinations": "business decision; do not automatically create Ads/Meta conversions",
+      "note": "Production reference used a differently cased event. New plans prefer canonical lowercase GA4 naming when semantics match."
+    },
+    "lead_or_booking": {
+      "canonical_ga4_event": "generate_lead",
+      "source": "verified successful lead/booking submission",
+      "meta_event": "Choose standard event from real semantics (e.g. Lead or Schedule); do not infer from button text alone.",
+      "server_destinations": "only destinations explicitly selected in plan"
+    },
+    "newsletter_signup": {
+      "canonical_ga4_event": "newsletter_signup",
+      "source": "verified successful newsletter subscription",
+      "note": "Do not misuse GA4 sign_up unless the action really creates/registers a user account."
+    },
+    "scroll_50": {
+      "canonical_ga4_event": "scroll_50",
+      "source": "GTM scroll trigger or dataLayer, if this measurement is actually useful",
+      "default_destinations": [
+        "GA4 optional"
+      ],
+      "do_not_default": [
+        "Google Ads conversion",
+        "Meta conversion/CAPI"
+      ]
+    },
+    "custom_completion": {
+      "canonical_ga4_event": "site-specific custom event",
+      "source": "verified completion callback/dataLayer preferred over brittle CSS/text click",
+      "server_destinations": "only if business value and ad-platform mapping are explicitly defined"
+    }
+  }
+}

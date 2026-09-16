@@ -1,0 +1,809 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "SANITIZED_REFERENCE",
+  "containerVersion": {
+    "path": "__REFERENCE_GTM_PATH__",
+    "accountId": "__REFERENCE_ACCOUNT_ID__",
+    "containerId": "__REFERENCE_CONTAINER_ID__",
+    "containerVersionId": "0",
+    "container": {
+      "path": "__REFERENCE_GTM_PATH__",
+      "accountId": "__REFERENCE_ACCOUNT_ID__",
+      "containerId": "__REFERENCE_CONTAINER_ID__",
+      "name": "Production Reference || Web",
+      "publicId": "GTM-REFERENCE-WEB",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "0",
+      "tagManagerUrl": "https://tagmanager.google.com/",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-REFERENCE-WEB"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "3",
+        "name": "Conversion Linker - Reference",
+        "type": "gclidw",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableUrlPassthrough",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableCookieOverrides",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "15",
+        "name": "Google Tag - Reference",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "{{Const - Google Mess ID}}"
+          },
+          {
+            "type": "LIST",
+            "key": "configSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "server_container_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "16",
+        "name": "Reference Tag 03 (gaawe)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "form_id"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "__FORM_ID__"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "transport_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "__EVENT_NAME__"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "32"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "18",
+        "name": "Reference Tag 04 (gaawe)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "true"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "getEcommerceDataFrom",
+            "value": "dataLayer"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "transport_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "__EVENT_NAME__"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "17"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "19",
+        "name": "Reference Tag 05 (gaawe)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "transport_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "__EVENT_NAME__"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "6"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "20",
+        "name": "Reference Tag 06 (gaawe)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "transport_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "__EVENT_NAME__"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "7"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "21",
+        "name": "Reference Tag 07 (gaawe)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "transport_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "__EVENT_NAME__"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "8"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "tagId": "22",
+        "name": "Reference Tag 08 (gaawe)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "transport_url"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "https://sgtm.example.invalid"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "__EVENT_NAME__"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "firingTriggerId": [
+          "5"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "triggerId": "5",
+        "name": "Reference Trigger 01 (SCROLL_DEPTH)",
+        "type": "SCROLL_DEPTH",
+        "fingerprint": "0",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "verticalThresholdUnits",
+            "value": "PERCENT"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "verticalThresholdsPercent",
+            "value": "50"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "verticalThresholdOn",
+            "value": "true"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "triggerStartOption",
+            "value": "WINDOW_LOAD"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "horizontalThresholdOn",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "triggerId": "6",
+        "name": "Reference Trigger 02 (PAGEVIEW)",
+        "type": "PAGEVIEW",
+        "filter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Page Path}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__SUCCESS_PATH__"
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "triggerId": "7",
+        "name": "Reference Trigger 03 (CLICK)",
+        "type": "CLICK",
+        "filter": [
+          {
+            "type": "CSS_SELECTOR",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Click Element}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__CSS_SELECTOR__"
+              }
+            ]
+          },
+          {
+            "type": "CONTAINS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Click Text}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__CLICK_TEXT__"
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "triggerId": "8",
+        "name": "Reference Trigger 04 (CLICK)",
+        "type": "CLICK",
+        "filter": [
+          {
+            "type": "CSS_SELECTOR",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Click Element}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__CSS_SELECTOR__"
+              }
+            ]
+          },
+          {
+            "type": "CONTAINS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Click Text}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__CLICK_TEXT__"
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "triggerId": "17",
+        "name": "Reference Trigger 05 (CUSTOM_EVENT)",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__SOURCE_EVENT_NAME__"
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "triggerId": "32",
+        "name": "Reference Trigger 06 (CUSTOM_EVENT)",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__SOURCE_EVENT_NAME__"
+              }
+            ]
+          }
+        ],
+        "filter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{DLV - Newsletter Form ID}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "__DATA_LAYER_MATCH_VALUE__"
+              }
+            ]
+          }
+        ],
+        "fingerprint": "0"
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "variableId": "23",
+        "name": "Const - Google Mess ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "__GA4_MEASUREMENT_ID__"
+          }
+        ],
+        "fingerprint": "0",
+        "formatValue": {}
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "variableId": "31",
+        "name": "DLV - Reference Value",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "gtm.elementId"
+          }
+        ],
+        "fingerprint": "0",
+        "formatValue": {}
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "EVENT",
+        "name": "Event"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "CLICK_ELEMENT",
+        "name": "Click Element"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "CLICK_CLASSES",
+        "name": "Click Classes"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "CLICK_ID",
+        "name": "Click ID"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "CLICK_TARGET",
+        "name": "Click Target"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "CLICK_URL",
+        "name": "Click URL"
+      },
+      {
+        "accountId": "__REFERENCE_ACCOUNT_ID__",
+        "containerId": "__REFERENCE_CONTAINER_ID__",
+        "type": "CLICK_TEXT",
+        "name": "Click Text"
+      }
+    ],
+    "fingerprint": "0",
+    "tagManagerUrl": "https://tagmanager.google.com/"
+  },
+  "_meixnerReference": {
+    "schema": 1,
+    "sanitized": true,
+    "type": "web",
+    "purpose": "architecture_reference_only"
+  }
+}

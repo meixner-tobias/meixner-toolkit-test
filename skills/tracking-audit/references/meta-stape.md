@@ -1,3 +1,15 @@
+# Server-Side GTM / Stape – aktueller Bootstrap und Master-Strategie
+
+**Stand 16.09.2026; vor Kundenprojekt zeitkritische Stape-Funktionen erneut pruefen.**
+
+- Stape bietet seit 2026 einen **Setup Wizard**, der aus Business-Typ/CMS/Zielplattformen vorkonfigurierte Web- und Server-GTM-Templates erzeugen und direkt importieren oder als JSON ausgeben kann. Das ist ein legitimer Bootstrap fuer einen echten Server-Master; das Toolkit behandelt den Download trotzdem zunaechst nur als `candidate`, bis ein GTM Import->Re-Export-Roundtrip erfolgreich verifiziert wurde. Quelle: https://stape.io/helpdesk/documentation/setup-wizard-overview
+- Google dokumentiert serverseitige Google-Ads-Conversions mit GA4-Client, serverseitigem Conversion Linker und serverseitigem Google-Ads-Conversion-Tag. Nach erfolgreichem Server-Setup sollen aequivalente Web-Conversion-Tags entfernt werden, um Duplikate zu vermeiden. Quelle: https://developers.google.com/tag-platform/tag-manager/server-side/ads-setup
+- Stape weist ebenfalls darauf hin: Google Ads bietet fuer denselben Conversion-Pfad keine allgemeine Browser/Server-Deduplizierung; fuer eine Conversion **entweder Web oder Server** senden. Quelle: https://stape.io/helpdesk/documentation/how-to-set-up-google-ads-conversion-tracking
+- Meta Browser + CAPI darf redundant laufen, wenn `event_id` zwischen Browser und Server identisch ist. Quelle: https://stape.io/helpdesk/documentation/how-to-set-up-meta-conversions-api
+- Same-Origin (z. B. `example.com/metrics`) ist 2026 die bevorzugte Stape-Variante, wenn die Infrastruktur es erlaubt. `server_container_url` muss zum tatsaechlichen Same-Origin-Pfad passen. Quelle: https://stape.io/helpdesk/documentation/how-to-use-same-origin-approach-for-server-gtm
+
+**Master-Regel:** Keine Community-Template-ID, keine Stape-Tag-Parameter und keinen Server-Export aus Erinnerung erfinden. Candidate aus realem GTM/Stape erzeugen -> GTM importieren -> Preview -> re-exportieren -> `gtm_master_verify.py` -> erst dann als wiederverwendbaren Master behandeln.
+
 # Meta Conversions API & Stape sGTM
 
 Stand 09/2026. Meta-Doku liegt jetzt unter `developers.facebook.com/documentation/ads-commerce/conversions-api/…`.
@@ -30,14 +42,14 @@ Stand 09/2026. Meta-Doku liegt jetzt unter `developers.facebook.com/documentatio
 Quellen: https://stape.io/helpdesk/documentation/sgtm/power-ups · https://stape.io/helpdesk/documentation/cookie-keeper-power-up · https://stape.io/helpdesk/documentation/click-id-restorer-power-up. Logs: nicht im Free-Plan (Pro: 3 Tage).
 
 ## Stape – Preise (sGTM, laut https://stape.io/price)
-Free 10.000 Requests/Monat · Pro 500.000 ($17) · Business 5 Mio. ($83) · Enterprise 20 Mio. ($167). Nur eingehende Requests zählen. Free-Limit erreicht → Container deaktiviert; Pro pausiert bei 110 %; Auto-Upgrade verhindert Pausen. https://stape.io/helpdesk/documentation/request-limits-and-pause-logic
-Faustregel: Requests ≈ Pageviews × (1 + Events pro Seite) nur bei Einwilligung → aus GA4-Daten hochrechnen, nicht raten.
+Free 10.000 Requests/Monat · Pro 500.000 ($17/Jahrabrechnung) · Business 5 Mio. ($83/Jahrabrechnung) · Enterprise 20 Mio. ($167/Jahrabrechnung). Preise und Limits sind zeitkritisch und vor einem Kundenangebot live auf https://stape.io/price prüfen. Stape zählt eingehende Requests an den Server-Container, einschließlich Script-Loads. Nach aktuellem Stand: Free wird beim Erreichen des Free-Limits deaktiviert und nicht automatisch im nächsten Zyklus reaktiviert; Pro/Pro+ pausiert bei 110 %; Business/Enterprise erhalten beim ersten Überlimit eine einmalige 30-Tage-Gnadenfrist; Auto-Upgrade kann Unterbrechungen vermeiden. https://stape.io/helpdesk/documentation/request-limits-and-pause-logic
+Kapazität niemals mit einer selbst erfundenen Event-Formel schätzen. Stapes aktuelle grobe Faustregel für sGTM lautet etwa **GA-Seitenaufrufe × 10**; besser sind reale GA4-Eventzahlen plus der aktuelle Stape Pricing Calculator. https://stape.io/helpdesk/knowledgebase/how-do-you-calculate-requests
 
 ## Stape – Tags/Clients
 - **Facebook Conversions API Tag (Stape)**: Event-Name „Inherit from client“ (GA4-/Data-Client) oder „Override“; Pixel-ID + Access Token; „Test ID“ für Test-Events; „Generate _fbp cookie if it not exist“ empfohlen; „Enable Event Enhancement“ (HttpOnly-Cookie `gtmeec`); `fbc` aus fbclid/_fbc; Event-ID aus Event-Daten (`event_id`); Consent-Einstellung: nur bei Marketing-Consent senden. https://stape.io/helpdesk/documentation/how-to-set-up-meta-conversions-api
 - **Data Tag (Web) + Data Client (Server)**: sendet dataLayer, Cookies und `consent_state` an `/data` – Alternative zum GA4-Transport, wenn GA4 nicht genutzt wird oder mehr Daten nötig sind. https://github.com/stape-io/data-tag
 - **Google Ads im Server**: GA4-Client, Conversion-Linker-Tag (alle Seiten), Google-Ads-Conversion-Tag (ID, Label; Wert/Währung/Transaction-ID aus Ecommerce-Daten); Enhanced Conversions über user-provided data. https://developers.google.com/tag-platform/tag-manager/server-side/ads-setup
-- **Meta CAPI Gateway (Stape)**: nur Meta, fast ohne Konfiguration; $10/Pixel/Monat bzw. $100 unbegrenzt. Für reine Meta-Kunden ohne sGTM-Bedarf. https://stape.io/helpdesk/knowledgebase/meta-conversions-api-gateway-cost
+- **Meta CAPI Gateway (Stape)**: nur Meta, fast ohne Konfiguration; kann für reine Meta-Kunden ohne sGTM-Bedarf passen. **Preis nicht im Toolkit festschreiben**: Stape ändert Gateway-Preise/Planstaffeln; vor Angebot immer die aktuelle Gateway-Preisseite prüfen. Stand 16.09.2026 zeigt die offizielle Preisseite Pay-as-you-go und einen größeren Pixel-Plan, aber diese Werte sind ausdrücklich zeitkritisch. https://stape.io/price-gateway
 
 ## Typische sGTM-Fehler (Audit-Checkliste)
 - Preview leer → `server_container_url` ≠ Preview-Host, CSP/CORS blockiert, doppelte GA4-Initialisierung.

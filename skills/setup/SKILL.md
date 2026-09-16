@@ -1,16 +1,16 @@
 ---
 name: setup
-description: Richtet meixner-toolkit ein und prüft die Umgebung (Konfiguration, Branding, Kundenliste, PageSpeed-Key, Playwright, Master-Container). Nutzen bei /setup, "Toolkit einrichten", "prüfe mein Setup", "neuen Kunden anlegen", "Kunde bearbeiten".
+description: Richtet meixner-toolkit ein und prüft die Umgebung (Konfiguration, Branding, Kundenliste, PageSpeed-Key, Playwright, Master-Container). Nutzen bei /meixner-toolkit:setup, "Toolkit einrichten", "prüfe mein Setup", "neuen Kunden anlegen", "Kunde bearbeiten".
 disable-model-invocation: true
 ---
 
-# /setup – Einrichtung, Check & Kundenliste
+# /meixner-toolkit:setup – Einrichtung, Check & Kundenliste
 
 Speicherort: `$MEIXNER_TOOLKIT_HOME`, sonst `~/.meixner-toolkit/` mit
 - `config.json` – Branding, Angebot, Standards (inkl. `recherche_budget`: `sparsam` | `normal` | `gruendlich`), Master-Container (Vorlage: `examples/config.json`)
 - `kunden/<slug>.json` – ein Kunde je Datei (Vorlage: `examples/kunde.json`); **nur IDs, keine Passwörter/Tokens**
 - `audits/<slug>/` – Audit-Ergebnisse (`.md` + `.json`)
-- `master/` – exportierte Master-Container
+- `master/` – exportierte GTM-Master plus `.verified.json`-Roundtrip-Manifeste; ein Container ohne Manifest ist nur Candidate
 
 Läuft die Session in Cowork ohne Home-Verzeichnis-Zugriff: nach einem verbundenen Ordner fragen und dort `meixner-toolkit/` anlegen; Pfad dem Nutzer nennen.
 
@@ -20,9 +20,9 @@ Läuft die Session in Cowork ohne Home-Verzeichnis-Zugriff: nach einem verbunden
 
 | Eingabe | Aktion |
 |---|---|
-| `/setup` | Check ausführen, Probleme mit konkreten Lösungsschritten zeigen |
-| `/setup init` | Ordner + `config.json` anlegen, Branding und Standards abfragen |
-| `/setup kunde <name>` | Kunde anlegen/bearbeiten |
+| `/meixner-toolkit:setup` | Check ausführen, Probleme mit konkreten Lösungsschritten zeigen |
+| `/meixner-toolkit:setup init` | Ordner + `config.json` anlegen, Branding und Standards abfragen |
+| `/meixner-toolkit:setup kunde <name>` | Kunde anlegen/bearbeiten |
 
 ## Check
 `python3 "${CLAUDE_SKILL_DIR}/scripts/doctor.py" --online` prüft Konfiguration, Kundenliste, PSI-Key, Playwright, SiteOne Crawler und Master-Container (ohne `--online`, wenn kein Netz). Ergebnis als ✅/⚠️/❌-Liste zeigen; nur ❌ und für den geplanten Auftrag relevante ⚠️ ansprechen.

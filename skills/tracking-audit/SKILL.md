@@ -1,6 +1,6 @@
 ---
 name: tracking-audit
-description: Auditiert und plant Tracking-Setups mit Google Tag Manager, GA4, Google Ads (Enhanced Conversions), Meta Pixel + Conversions API, Consent Mode v2 und Server-Side GTM (Stape) und erzeugt importierbare GTM-Container-JSONs. Nutzen bei /tracking-audit, "Tracking prüfen", "GTM Setup", "Consent Mode prüfen", "Meta CAPI einrichten", "sGTM/Stape Setup", "Conversion Tracking kaputt".
+description: Auditiert und plant Tracking-Setups mit Google Tag Manager, GA4, Google Ads (Enhanced Conversions), Meta Pixel + Conversions API, Consent Mode v2 und Server-Side GTM (Stape) und erzeugt importierbare GTM-Container-JSONs. Nutzen bei /meixner-toolkit:tracking-audit, "Tracking prüfen", "GTM Setup", "Consent Mode prüfen", "Meta CAPI einrichten", "sGTM/Stape Setup", "Conversion Tracking kaputt".
 disable-model-invocation: true
 ---
 
@@ -12,8 +12,8 @@ Rolle: erfahrener Tracking- und Consent-Berater (GTM, GA4, Google Ads, Meta CAPI
 2. Recherche-Budget nach `config.json → standards.recherche_budget` (Standard `normal`: max. 8 Suchen, 15 Abrufe). Zwei übereinstimmende Primärquellen genügen.
 3. Rohdaten (Crawl-JSON, GSC/GA4-Exporte, Container-Exporte) nie ganz lesen, immer erst per Skript verdichten.
 4. Auffällige Befunde mit einer zweiten Methode gegenprüfen, bevor sie in den Report kommen.
-5. Fragen bündeln (eine Runde, max. 4) und nur stellen, wenn die Antwort das Ergebnis ändert; sonst Annahme treffen und im Report nennen. Vor jedem eingreifenden Schritt (Code, Import, Veröffentlichen, Versand, kostenpflichtige API) immer fragen.
-# /tracking-audit – Audit → Plan → Import-JSON → Test
+5. Fragen bündeln und nur stellen, wenn die Antwort das Ergebnis ändert. **Ausnahme Build/Plan:** Alle vom Completeness Gate als blockierend markierten UNKNOWN-Felder müssen geklärt werden; falls nötig in mehreren kurzen Runden. Für architekturrelevante Tracking-Felder niemals eine Annahme erfinden, nur um unter vier Fragen zu bleiben. Vor jedem eingreifenden Schritt (Code, Import, Veröffentlichen, Versand, kostenpflichtige API) immer fragen.
+# /meixner-toolkit:tracking-audit – Audit → Plan → Import-JSON → Test
 
 Deutsch, Zielmarkt DACH. Skripte liegen in `scripts/` dieses Skill-Ordners (`${CLAUDE_SKILL_DIR}`; falls nicht ersetzt, Pfad per `find ~ -path '*tracking-audit/scripts' -maxdepth 8` ermitteln). Automatisierungsstufe: **Audit von außen + Import-JSON** (keine Schreibzugriffe per API).
 
@@ -31,10 +31,10 @@ Deutsch, Zielmarkt DACH. Skripte liegen in `scripts/` dieses Skill-Ordners (`${C
 
 | Eingabe | Modus |
 |---|---|
-| `/tracking-audit <url>` | Audit (Standard) |
-| `/tracking-audit plan` | Rückfragen → Tracking-Plan (`tracking-plan.md` + `plan.json`) |
-| `/tracking-audit build` | Import-JSON aus `plan.json` bzw. Master-Container + Anleitung |
-| `/tracking-audit test <url>` | Nach dem Setup: Consent-Test + Testprotokoll, Vergleich mit Baseline |
+| `/meixner-toolkit:tracking-audit <url>` | Audit (Standard) |
+| `/meixner-toolkit:tracking-audit plan` | Rückfragen → Tracking-Plan (`tracking-plan.md` + `plan.json`) |
+| `/meixner-toolkit:tracking-audit build` | Import-JSON aus `plan.json` bzw. Master-Container + Anleitung |
+| `/meixner-toolkit:tracking-audit test <url>` | Nach dem Setup: Consent-Test + Testprotokoll, Vergleich mit Baseline |
 
 Liegen `tracking-audit.md`/`tracking-plan.md` im Projekt: zuerst lesen und fragen, ob weitergearbeitet wird.
 Kontext: `~/.meixner-toolkit/config.json` (Standards: CMP, Consent Mode, sGTM-Domain, backup_gclid, Master-Container) und `kunden/<slug>.json` (IDs) lesen – daraus Rückfragen vorbelegen statt neu fragen. Neue Website ohne Tracking: Audit überspringen und direkt mit `plan` starten.
@@ -89,9 +89,20 @@ Bereich im JSON (fester Name je Präfix): **Messung** (GTM, GA4, DATA, SGTM) · 
 - **DATA**: dataLayer-Qualität (Eventnamen, `ecommerce`-Objekt, `user_data`), keine PII in URLs/Eventparametern an GA4.
 - **LEGAL**: Datenschutzerklärung nennt alle gefundenen Dienste; CMP listet sie; Hinweis § 25 TDDDG.
 
-Bewertung wie bei `/seogeo`: Priorität (Kritisch = Rechtsrisiko oder Messung kaputt · Hoch · Mittel · Niedrig), Evidenz (Offiziell/Belegt/Plausibel/Spekulativ), Aufwand (S/M/L), Nachweis, Fix.
+Bewertung wie bei `/meixner-toolkit:seogeo`: Priorität (Kritisch = Rechtsrisiko oder Messung kaputt · Hoch · Mittel · Niedrig), Evidenz (Offiziell/Belegt/Plausibel/Spekulativ), Aufwand (S/M/L), Nachweis, Fix.
 
 **Report `tracking-audit.md`**: Stand, Umfang, Datenquellen · Zusammenfassung + Scorecard + Top-5 · Findings (Tabelle + Detail) · Consent-Matrix (Szenario × Tracker × Cookies) · Was gut ist · Nicht geprüft · Baseline (für `test`) · Quellen. Zusätzlich `tracking-audit.json` (Schema: Skill `kundenbericht` → `references/audit-schema.md`, `typ: "tracking"`), Ablage unter `~/.meixner-toolkit/audits/<slug>/` + Eintrag in `kunden/<slug>.json`; neu gefundene IDs dort speichern. Selbstprüfung vor dem Senden (Zahlen, IDs, Nachweise). Im Chat: Kurzfassung und Frage „Weiter mit Plan?“.
+
+
+### Completeness Gate vor jedem Build
+
+`plan.json` muss einen `requirements`-Block enthalten. Der deterministische Gate-Check (`scripts/plan_gate.py`) blockiert den Build, solange architekturrelevante Entscheidungen fehlen. **UNKNOWN darf nie durch Raten ersetzt werden.** Ein `*_verified: true` reicht allein nicht: `requirements.evidence` und `requirements.event_evidence` muessen die konkrete Beobachtung/Quelle nennen (z. B. GTM Preview, dataLayer, Codepfad oder ausdrueckliche Nutzerbestaetigung). Begriffe wie „Annahme“, „unknown“ oder „TODO“ gelten nicht als Evidenz. Fehlende Punkte werden als konkrete Rueckfragen ausgegeben und in einer gebuendelten Fragerunde geklaert. Mindestens: Seitentyp (MPA/SPA/Hybrid), Produktionsdomain, echte Eventquelle, verifizierter Erfolgs-/Ausloesepunkt je geplantem Event, Consent-Strategie, Cross-Domain-Entscheidung, interne Zugriffe; bei E-Commerce zusätzlich Kauf-dataLayer (`transaction_id/value/currency/items`), Refund- und Payment-Referral-Strategie; bei Enhanced Conversions die verifizierte `user_data`-Quelle + Consent-Pfad; bei sGTM die Browser-vs-Server-Zustaendigkeit. `requirements.open_questions` muss leer sein. Cross-Domain wird vom Direktgenerator bewusst nicht still approximiert: dafuer einen real verifizierten Master verwenden.
+
+Vor Build immer:
+```bash
+python3 "${CLAUDE_SKILL_DIR}/scripts/plan_gate.py" plan.json
+```
+Nur `complete: true` darf in den Generator. Der Generator prueft dasselbe Gate erneut und bricht sonst ab.
 
 ## 5. Plan – Rückfragen (AskUserQuestion, max. 2 Runden)
 
@@ -102,18 +113,28 @@ Nur fragen, was nicht aus Audit/Recon ableitbar ist (vollständiger Katalog und 
 4. sGTM ja/nein, Domain-Variante (DNS-/Cloudflare-Zugriff?), Stape-Plan nach Volumen.
 5. Enhanced Conversions / CAPI-Nutzerdaten: Wo liegt die E-Mail/Telefon (Formular, Shop)?
 6. `backup_gclid`-Workaround gewünscht? (Hinweis auf Einordnung in `references/google.md`.)
+7. Completeness-Gate-Felder, soweit Recon sie nicht belegt: MPA/SPA/Hybrid, kanonische Domain, Eventquelle + echter Ausloesepunkt **je geplantem Event**, Cross-Domain ja/nein, interne/Testzugriffe; bei Shop Kauf-dataLayer (`transaction_id/value/currency/items`), Refunds und Payment-Referrals; bei Enhanced Conversions konkrete `user_data`-Quelle + Consent-Pfad; bei sGTM eindeutige Browser-vs-Server-Zuständigkeit. Jede als verifiziert gesetzte Entscheidung bekommt eine kurze Evidenznotiz (`requirements.evidence`/`event_evidence`). Nicht beantwortet oder nur vermutet = `open_questions`, kein Build.
 
 Ergebnis: **`tracking-plan.md`** (Tabelle Event → Auslöser → GA4 / Ads / Meta / Werte / Consent-Kategorie, Architekturbild als Text, offene Punkte) + **`plan.json`** (Schema: `references/gtm-json.md`). Freigabe durch Tobias abwarten.
 
+
+### Production Reference + Golden-Master-Verifikation
+Das Toolkit liefert seit 0.7.11 ein **sanitisiertes, real eingesetztes Web-/Server-Referenzpaar** unter `masters/production-reference/`. Es ist Architektur-Evidenz, **kein Default-Setup**. Vor Plan/Build `masters/REFERENCE-POLICY.md` lesen und `masters/patterns/event-patterns.json` nur als Pattern-Library nutzen. Niemals Kundenwerte, Consent-Entscheidungen, Waehrung, Eventnamen, Pfade, Selektoren oder Werbeziele aus der Referenz erben. Der Guard `scripts/reference_guard.py` muss gruen sein.
+
+Aus der Referenz abgeleitete `masters/core/*.candidate.json` enthalten nur neutrale Core-Struktur. Sie bleiben `candidate_reference_only`, bis sie einen **echten GTM Import -> Preview -> Re-Export** durchlaufen haben. `scripts/gtm_master_verify.py` vergleicht Candidate und Roundtrip semantisch; `fill_template.py --verified-manifest ...` bindet den Hash an den Master. Ein erstmaliger Bootstrap darf nur bewusst `--candidate-only` verwenden. Google unterstuetzt Export/JSON-Aenderung/Import offiziell; das ersetzt aber keinen fachlichen Preview-Test. Details: `masters/README.md` und `masters/REFERENCE-POLICY.md`.
+
 ## 6. Build
 
-1. **Web-Container**: `python3 "${CLAUDE_SKILL_DIR}/scripts/build_web_container.py" plan.json -o gtm-web-import.json` (Selbstprüfung eingebaut; bricht bei kaputten Referenzen ab).
-2. **Master-Container** vorhanden (z. B. `~/tracking-master/*.json`)? → `fill_template.py master.json values.json -o …` für Server-Container und Galerie-Templates. `--list` zeigt die Konstanten.
-3. Kein Master für den Server-Container → Schritt-für-Schritt-Anleitung (Stape-Container anlegen, Custom Domain, Tagging Server URL, GA4-Client, Stape-Meta-CAPI-Tag „Inherit from client“ + Access Token + Test-ID, Google-Ads-Conversion + Conversion Linker, Power-ups: Custom Loader, Cookie Keeper, ggf. Click ID Restorer) und anbieten, danach einen Master zu exportieren.
-4. Manuelle Schritte immer auflisten: CMP-Template aus der Galerie (Consent Initialization), Meta Access Token, DNS/Proxy, Ads-Final-URL-Suffix, GA4 Key Events, Ads-Kundendatenbedingungen.
-5. Import-Anleitung: Verwaltung → Container importieren → neuer Workspace → Zusammenführen/Konflikte umbenennen. Danach Einwilligungseinstellungen der Meta-Tags kontrollieren (siehe `references/gtm-json.md`).
+0. **Reference Guard:** `python3 "${CLAUDE_SKILL_DIR}/scripts/reference_guard.py"`. Bei Fehler abbrechen; nie auf rohe/private GTM-Exporte aus dem Plugin zurueckfallen.
+1. **Eventplan zuerst:** reales Success-/Interaktionssignal je Event verifizieren; danach Pattern waehlen. `purchase`, `start_trial`, Lead/Booking, Newsletter, Scroll und Custom Completion haben bewusst unterschiedliche Regeln in `masters/patterns/event-patterns.json`. Engagement-Events werden **nicht automatisch** Ads-/Meta-Conversions.
+2. **Web-Container**: `python3 "${CLAUDE_SKILL_DIR}/scripts/build_web_container.py" plan.json -o gtm-web-import.json` (Selbstprüfung eingebaut). Die Production Reference dient nur als Struktur-Gegenprobe. Wenn Cross-Domain erforderlich ist, den Direktgenerator **nicht** verwenden – nur einen real verifizierten Master, der diese Konfiguration nachweislich enthaelt. SPA/Hybrid nur mit verifizierter `dataLayer_page_view`-Strategie und explizitem `page_view`-Event.
+3. **Server-/Galerie-Container:** bevorzugt einen real verifizierten Master mit `fill_template.py ... --verified-manifest ...`. Fehlt er, kann `masters/core/server-core.candidate.json` als **Bootstrap-Struktur** dienen, aber nur mit `--candidate-only`; kundenspezifische Event-/Ads-/Meta-Tags werden danach aus dem verifizierten Plan aufgebaut. Alternativ Stape Setup Wizard bzw. manueller Aufbau nach aktueller Google/Stape-Doku. Keine Community-Template-IDs oder Server-JSON-Felder erfinden.
+4. **Google Ads Server-Side:** bei serverseitiger Conversion-Messung keine aequivalente Browser-Ads-Conversion still parallel erzeugen. ID/Label aus dem Kundenkonto; Wert/Waehrung/Transaction-ID aus verifiziertem Eventvertrag, nicht aus Referenzwerten.
+5. **Meta:** CAPI-Token nie im Chat/Git. Browser+Server nur mit identischem realen Eventnamen + derselben `event_id` deduplizieren. `adStorageConsent=optional`, `inherit` und andere im Referenzsetup beobachtete Einstellungen sind **keine Defaults**; pro Kunde/CMP verifizieren.
+6. Manuelle/nicht im JSON abbildbare Schritte immer auflisten: CMP-Template aus der Galerie (Consent Initialization), Meta Access Token, DNS/Proxy, GA4 Key Events/Data Filters/Unwanted Referrals, Cross-Domain falls nicht ueber einen verified Master abgedeckt, Ads-Kundendatenbedingungen. Nie so tun, als enthalte das Import-JSON Kontoeinstellungen ausserhalb von GTM.
+7. Import-Anleitung: Verwaltung → Container importieren → neuer Workspace → Zusammenführen/Konflikte umbenennen. Danach Preview/Tag Assistant bzw. Server Preview; erst nach bestandenem Test veroeffentlichen.
 
-## 7. Test & Abnahme (`/tracking-audit test`)
+## 7. Test & Abnahme (`/meixner-toolkit:tracking-audit test`)
 
 Testprotokoll `tracking-test.md` mit Häkchen je Punkt:
 - GTM-Vorschau: jedes Plan-Event feuert genau einmal, richtige Parameter; Marketing-Tags vor Einwilligung blockiert.

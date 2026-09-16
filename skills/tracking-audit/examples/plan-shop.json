@@ -40,5 +40,37 @@
     "mode": "advanced",
     "update_event": "cookie_consent_update"
   },
-  "architecture": "browser+server"
+  "architecture": "browser+server",
+  "requirements": {
+    "gate_version": 1,
+    "open_questions": [],
+    "site_type": "mpa",
+    "primary_domain": "www.shop.de",
+    "event_source": "dataLayer",
+    "event_source_verified": true,
+    "conversion_success_verified": true,
+    "consent_strategy_verified": true,
+    "cross_domain": "not_required",
+    "internal_traffic": "filter",
+    "ecommerce_contract_verified": true,
+    "refund_strategy": "manual",
+    "payment_referrals": "not_required",
+    "enhanced_conversions_verified": true,
+    "enhanced_conversions_source": "dataLayer user_data aus Checkout",
+    "server_strategy_verified": true,
+    "evidence": {
+      "event_source": "GTM Preview/dataLayer am reproduzierbaren Testablauf beobachtet",
+      "conversion_success": "Erfolgs-/Interaktionspunkt je Event im Testablauf beobachtet",
+      "consent_strategy": "CMP-Konfiguration und Consent-Update im Consent-Test/Preview beobachtet",
+      "ecommerce_contract": "GTM Preview: transaction_id, value, currency und items am Testkauf beobachtet",
+      "enhanced_conversions": "User-Data-Quelle und Consent-Pfad im Formular/Checkout + Preview verifiziert",
+      "server_strategy": "sGTM-Zieldomain und Browser-vs-Server-Zustaendigkeit im Trackingplan verifiziert"
+    },
+    "event_evidence": {
+      "view_item": "GTM Preview: Event view_item am definierten Testpfad beobachtet",
+      "add_to_cart": "GTM Preview: Event add_to_cart am definierten Testpfad beobachtet",
+      "begin_checkout": "GTM Preview: Event begin_checkout am definierten Testpfad beobachtet",
+      "purchase": "GTM Preview: Event purchase am definierten Testpfad beobachtet"
+    }
+  }
 }

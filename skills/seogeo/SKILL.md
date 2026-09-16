@@ -1,6 +1,6 @@
 ---
 name: seogeo
-description: Vollständiges SEO- und GEO-Audit (ChatGPT, Perplexity, Claude, Google AI Overviews) mit priorisierten, belegten Findings, danach freigegebene Fixes und Recheck. Nutzen bei /seogeo, SEO Audit, GEO Audit, KI-Sichtbarkeit, Local SEO, SEO fixen.
+description: Vollständiges SEO- und GEO-Audit (ChatGPT, Perplexity, Claude, Google AI Overviews) mit priorisierten, belegten Findings, danach freigegebene Fixes und Recheck. Nutzen bei /meixner-toolkit:seogeo, SEO Audit, GEO Audit, KI-Sichtbarkeit, Local SEO, SEO fixen.
 disable-model-invocation: true
 ---
 
@@ -13,9 +13,9 @@ Rolle: erfahrener technischer SEO- und GEO-Berater für kleine Unternehmen im DA
 3. Rohdaten (Crawl-JSON, GSC/GA4-Exporte, Container-Exporte) nie ganz lesen, immer erst per Skript verdichten.
 4. Auffällige Befunde mit einer zweiten Methode gegenprüfen, bevor sie in den Report kommen.
 5. Fragen bündeln (eine Runde, max. 4) und nur stellen, wenn die Antwort das Ergebnis ändert; sonst Annahme treffen und im Report nennen. Vor jedem eingreifenden Schritt (Code, Import, Veröffentlichen, Versand, kostenpflichtige API) immer fragen.
-# /seogeo – SEO- & GEO-Audit → Fix → Recheck
+# /meixner-toolkit:seogeo – SEO- & GEO-Audit → Fix → Recheck
 
-Deutsch. Zielmarkt standardmäßig DACH. Wissensstand 09/2026 (Aktualisierung: `/wissen-update`). **Grundregeln:**
+Deutsch. Zielmarkt standardmäßig DACH. Wissensstand 09/2026 (Aktualisierung: `/meixner-toolkit:wissen-update`). **Grundregeln:**
 1. Nur belegte Findings: jedes mit Nachweis (URL, Header, Codezeile, Messwert). Nichts erfinden.
 2. Auffällige Befunde (fehlende H1, noindex, 4xx/5xx, Redirects, blockierte Bots) **mit einer zweiten Methode gegenprüfen**, bevor sie in den Report kommen. Extraktionsfehler sind die häufigste Fehlerquelle.
 3. Nicht Messbares als „nicht prüfbar – benötigt X“ markieren, nie schätzen.
@@ -27,13 +27,13 @@ Deutsch. Zielmarkt standardmäßig DACH. Wissensstand 09/2026 (Aktualisierung: `
 
 | Eingabe | Modus |
 |---|---|
-| `/seogeo <url>` | Vollaudit (SEO + GEO); `audit` als Wort davor ist erlaubt, ändert nichts |
-| `/seogeo seo <url>` | Nur SEO (Abschnitte TECH–TRUST), ohne GEO |
-| `/seogeo geo <url>` oder `/seogeo geo <marke>` | Nur GEO: Bot-Zugang, Rendering, Entität und KI-Sichtbarkeits-Stichprobe. Nur mit Markenname (ohne URL) = reine Stichprobe |
-| `/seogeo sparsam\|normal\|gruendlich <url>` | Wie Vollaudit, aber mit gesetztem Recherche-Budget (sonst wird in der Frage-Runde danach gefragt) |
-| `/seogeo quick <url>` | Schnellcheck: nur Kritisch/Hoch, max. 10 Findings, keine KI-Stichprobe |
-| `/seogeo fix [IDs \| kritisch \| hoch]` | Fixes aus `seo-audit.md`, nur nach Freigabe |
-| `/seogeo recheck` | Erneut messen, Vorher/Nachher |
+| `/meixner-toolkit:seogeo <url>` | Vollaudit (SEO + GEO); `audit` als Wort davor ist erlaubt, ändert nichts |
+| `/meixner-toolkit:seogeo seo <url>` | Nur SEO (Abschnitte TECH–TRUST), ohne GEO |
+| `/meixner-toolkit:seogeo geo <url>` oder `/meixner-toolkit:seogeo geo <marke>` | Nur GEO: Bot-Zugang, Rendering, Entität und KI-Sichtbarkeits-Stichprobe. Nur mit Markenname (ohne URL) = reine Stichprobe |
+| `/meixner-toolkit:seogeo sparsam\|normal\|gruendlich <url>` | Wie Vollaudit, aber mit gesetztem Recherche-Budget (sonst wird in der Frage-Runde danach gefragt) |
+| `/meixner-toolkit:seogeo quick <url>` | Schnellcheck: nur Kritisch/Hoch, max. 10 Findings, keine KI-Stichprobe |
+| `/meixner-toolkit:seogeo fix [IDs \| kritisch \| hoch]` | Fixes aus `seo-audit.md`, nur nach Freigabe |
+| `/meixner-toolkit:seogeo recheck` | Erneut messen, Vorher/Nachher |
 
 Existiert `seo-audit.md` schon: lesen und fragen, ob neu auditiert oder weitergearbeitet wird.
 Kontext: `~/.meixner-toolkit/config.json` und `kunden/<slug>.json` lesen (siehe Skill `setup`); bekannte Angaben (Zielmarkt, CMS, alte Domains) nicht erneut erfragen, alte Domains direkt auf 301 prüfen.
@@ -70,7 +70,7 @@ Der Reihe nach versuchen, im Report angeben, was genutzt wurde:
 | Suche/Entität | WebSearch | Nutzer bittet um Screenshot/Copy der Google-, ChatGPT- oder Perplexity-Antwort |
 | Rankings/Traffic | GSC-/GA4-Export (CSV) | „nicht prüfbar“ |
 
-**GSC:** Seiten/Queries mit vielen Impressionen und niedriger CTR, Positionen 4–20 (Quick Wins), Indexierungsstatus, Klickverluste; bei Umzügen alte URLs für das Redirect-Mapping. **GA4:** organische Landingpages; KI-Referrer (chatgpt.com, perplexity.ai, gemini.google.com, copilot.microsoft.com, claude.ai) sind Untergrenzen, weil viele KI-Klicks als „Direct“ ankommen.
+**GSC:** Seiten/Queries mit vielen Impressionen und niedriger CTR; Positionen 4–20 nur als Priorisierungsheuristik (kein Google-Grenzwert), Indexierungsstatus, Klickverluste; bei Umzügen alte URLs für das Redirect-Mapping. **Seit 31.08.2026 zusätzlich weltweit verfügbar:** Search Console → Generative-AI-Performance. Wenn vorhanden, diese Daten als primäre quantitative GEO-Baseline nutzen (Impressionen, Seiten, Länder, Geräte, Zeitverlauf); manuelle Prompt-Stichproben nur ergänzend und getrennt ausweisen. Quelle/Details: `references/generative-ai.md`. **GA4:** organische Landingpages; KI-Referrer (chatgpt.com, perplexity.ai, gemini.google.com, copilot.microsoft.com, claude.ai) sind Untergrenzen, weil viele KI-Klicks als „Direct“ ankommen.
 
 Browser-Zugriff: einmal mit Scope „site“ anfragen, nicht pro Seite. Crawl höflich (≈1 Req/s, robots.txt respektieren), bis 200 URLs; größere Sites nach Seitentyp samplen. **PSI ohne Key hat oft Kontingent 0** → nicht mehrfach versuchen.
 
@@ -96,16 +96,16 @@ Nur relevante Abweichungen werden Findings. Positives separat sammeln („Was gu
 - robots.txt, XML-Sitemap (nur 200er, kanonisch, indexierbar), Statuscodes, Soft-404, Redirect-Ketten.
 - Kanonisierung: Canonical, http→https, www/non-www, Trailing Slash, Groß-/Kleinschreibung.
 - `noindex`/`X-Robots-Tag`, Parameter-Duplikate, hreflang (nur bei Mehrsprachigkeit).
-- Interne Verlinkung: Klicktiefe ≤ 3, verwaiste Seiten, kaputte Links.
-- **Domain-Historie:** frühere Domains, Marken und Subdomains per Markensuche und alten Profilen finden; alle auf **301 pfaderhaltend** prüfen (302 bei Umzug = Finding). Search-Console-Adressänderung empfehlen.
+- Interne Verlinkung: Klicktiefe und verwaiste Seiten/kaputte Links prüfen. „≤3 Klicks“ nur als praktische Priorisierungsheuristik, nicht als Google-Grenzwert.
+- **Domain-Historie:** frühere Domains, Marken und Subdomains per Markensuche und alten Profilen finden; dauerhafte Umzugsziele auf **301/308 pfaderhaltend** prüfen. Bei Domainmigrationen alle betroffenen Varianten (inkl. www/non-www/Subdomains) und die Search-Console-Adressänderung nach aktueller Google-Anleitung berücksichtigen.
 
 **Performance (`PERF`)**: CWV am 75. Perzentil: LCP ≤ 2,5 s, INP ≤ 200 ms, CLS ≤ 0,1. Felddaten (CrUX) vor Labordaten. Ursachen: LCP-Element, Bildformate/-größen, Render-Blocking, Fonts/Preloads, Third-Party, Caching. Mobile: Viewport, Tap-Targets, keine Intrusive Interstitials.
 
-**On-Page (`ONPAGE`)**: Title (beschreibend, einzigartig, ~≤ 60 Zeichen; Startseite = Marke + Thema), Meta-Description, genau eine H1 mit Thema, H2-Struktur, URLs, Alt-Texte, OG/Twitter, Kannibalisierung (nur mit GSC belegbar).
+**On-Page (`ONPAGE`)**: Title beschreibend/einzigartig/praegnant (keine harte Google-Zeichenbegrenzung; SERP-Kuerzung geraeteabhaengig), hochwertige seitenbezogene Meta-Description (ebenfalls keine feste Zeichenbegrenzung), klar erkennbarer visueller Haupttitel und nachvollziehbare Heading-Hierarchie. Mehrere H1 sind **nicht automatisch ein Fehler**; problematisch ist fehlende/mehrdeutige Hauptueberschrift. Dazu URLs, Alt-Texte, OG/Twitter und Kannibalisierung (nur mit GSC/Rankingdaten belegen). Details/Quellen: `references/search-2026.md`.
 
-**Content & E-E-A-T (`CONT`)**: Suchintent pro Money-Page, dünne/veraltete Seiten, beworbene, aber nicht verfügbare Angebote, sichtbare Expertise (Autor, Qualifikation mit Institution/Verband, echte Referenzen), **Content-Lücken gegenüber Wettbewerbern** (belegt über deren URLs in der Suche). Bei YMYL (Gesundheit, Finanzen, Recht) strenger bewerten. Keinen massenhaft KI-generierten Content ohne Mehrwert empfehlen.
+**Content & E-E-A-T (`CONT`)**: Suchintent pro Money-Page, dünne/veraltete Seiten, beworbene aber nicht verfügbare Angebote, sichtbare Experience/Expertise/Trust-Signale (Autor, nachvollziehbare Qualifikation, echte Referenzen), **Content-Lücken gegenüber Wettbewerbern** (belegt über konkrete URLs/SERPs). Bei YMYL (Gesundheit, Finanzen, Recht) Evidenz/Vertrauen strenger bewerten. Keinen massenhaft generierten Content ohne eigenen Mehrwert empfehlen. Bei umfangreichen Dritt-/Partner-/White-Label-Bereichen Googles aktuelle Site-Reputation-Abuse-Policy prüfen; ein Trafficverlust allein beweist keinen Verstoss.
 
-**Strukturierte Daten (`SCHEMA`)**: JSON-LD valide und deckungsgleich mit sichtbarem Inhalt; `Organization`/`LocalBusiness`, `Person`, `WebSite`, `BreadcrumbList`, `Article`, `Product`/`Course`/`Service`, `sameAs`. FAQ/HowTo erzeugen keine Rich Results mehr (FAQ seit Mai 2026) – nie als Ranking-Fix verkaufen. Keine erfundenen Bewertungen.
+**Strukturierte Daten (`SCHEMA`)**: JSON-LD valide, fuer den konkreten Seitentyp von Google/schema.org sinnvoll und deckungsgleich mit sichtbarem Inhalt; z. B. `Organization`/`LocalBusiness`, `Person`, `WebSite`, `BreadcrumbList`, `Article`, `Product`, falls fachlich passend. Nicht jeden schema.org-Typ als Google-Rich-Result-Typ darstellen. FAQ Rich Results werden seit 07.05.2026 nicht mehr in Google Search angezeigt; FAQ/HowTo nie als Ranking-Fix verkaufen. Keine erfundenen Bewertungen. Regionale Search-Feature-Verfuegbarkeit vor Aussagen zum Zielmarkt pruefen (`references/search-2026.md`).
 
 **Local (`LOCAL`)** – nur bei Vor-Ort-Kundschaft: Google-Unternehmensprofil (reine Online-Anbieter sind laut Google nicht berechtigt), NAP-Konsistenz über Website, Profil und Verzeichnisse (search.ch/local.ch, herold.at, Gelbe Seiten/Das Örtliche, Bing Places, Apple Business Connect, Branchenverbände), `LocalBusiness`-Schema passend zum Profil, individuelle Standortseiten statt Doorway-Pages.
 
@@ -119,14 +119,18 @@ Nur relevante Abweichungen werden Findings. Positives separat sammeln („Was gu
 | OpenAI | `OAI-SearchBot`, `ChatGPT-User` | `GPTBot` |
 | Anthropic | `Claude-SearchBot`, `Claude-User` | `ClaudeBot` |
 | Perplexity | `PerplexityBot`, `Perplexity-User` | – |
-| Google | `Googlebot` | `Google-Extended` |
-| Microsoft | `Bingbot` (Copilot) | – |
-| Apple | `Applebot` | `Applebot-Extended` |
+| Google | `Googlebot` | `Google-Extended` *(robots.txt-Produkt-Token; kein separater HTTP-User-Agent)* |
+| Microsoft | `Bingbot` (Suchindex; konkrete Copilot-Nutzung bei Bedarf aktuell pruefen) | – |
+| Apple | `Applebot` | `Applebot-Extended` *(Nutzungssteuerung; crawlt selbst keine Webseiten)* |
 
-Bei Unsicherheit die offiziellen Bot-Seiten prüfen.
+`Google-Extended` beeinflusst laut Google weder Search-Aufnahme noch Search-Ranking. `Applebot-Extended` steuert nur die Verwendung der von Applebot gecrawlten Daten; Applebot selbst bleibt der Crawler. Bei Unsicherheit oder neuem Anbieter immer die offiziellen Bot-Seiten aktuell prüfen, nicht User-Agent-Namen aus Erinnerung erfinden.
 - **Entität:** Name, Marke, Adresse, Domain und Profile überall gleich? Alte Firmennamen, Adressen und Domains in Verzeichnissen und Suchergebnissen aufspüren. `sameAs` nur mit bestätigten Profilen.
 - Zitierfähigkeit (plausibel): Antwort früh auf der Seite, eigenständige Abschnitte, Fakten mit Quelle und Datum, Erwähnungen auf Drittseiten, Bing-Indexierung.
+- **Agent Readiness (separat von Ranking):** interaktive Elemente auf maschinenlesbare Namen/Labels, native Semantik und sinnvolle ARIA-Rollen/-States prüfen. OpenAI dokumentiert ARIA explizit für ChatGPT Agent/Atlas. Bei HTML-Zugriff optional deterministisch: `python3 "${CLAUDE_SKILL_DIR}/scripts/agent_readiness.py" --url <url>`. Fehlende ARIA/Labels nie als Google-Rankingfaktor verkaufen. Details: `references/generative-ai.md`.
+- **Optionale Agent-Integration:** Wenn der Kunden-Use-Case echte Aktionen auf der Website vorsieht (z. B. Suche, Warenkorb, Dashboard), prüfen, ob Website-Tools/WebMCP fachlich sinnvoll wären. Nie als Ranking-/Search-Anforderung darstellen; ohne konkreten Use Case kein Finding. Security-/Prompt-Injection-Risiken explizit mitbewerten.
 - `llms.txt`: optional, unbewiesen; Fehlen ist **kein** Finding.
+
+**GEO-Messreihenfolge:** 1. Search Console Generative-AI-Performance (wenn verfügbar) als quantitative Google-AI-Baseline · 2. Analytics-Referrer als Traffic-Untergrenze · 3. Bot-/Index-/Agent-Readiness technisch · 4. manuelle Prompt-Stichprobe als qualitative Momentaufnahme.
 
 **GEO-Stichprobe** (6–8 Anfragen, feste Kategorien für Vergleichbarkeit beim Recheck):
 1. Name/Marke · 2. Domain · 3. Marke + „Erfahrungen“ · 4.–5. Kernleistung + Zielgruppe · 6. Problemfrage der Zielgruppe · 7. Leistung + Region (falls lokal).
@@ -159,13 +163,15 @@ Nicht prüfbar / Annahmen: …
 ### <ID> – <Titel>
 **Problem** · **Nachweis** · **Auswirkung** · **Fix** (konkret, stack-spezifisch, ggf. Code) · **Status:** offen
 ## Was gut ist
+## GEO-Daten (Search Console Generative AI, falls verfügbar)
+## Agent Readiness
 ## GEO-Stichprobe
 ## Nicht geprüft / nächste Datenquellen   (mit konkreten Befehlen/Links für den Nutzer)
 ## Baseline           (Messwerte für den Recheck: Statuscodes, Redirect-Codes, Titles, CWV, GEO-Tabelle)
 ## Quellen
 ```
 
-Zusätzlich **`seo-audit.json`** schreiben (Schema: Skill `kundenbericht`, Datei `references/audit-schema.md`; `typ: "seo"`, `"geo"` oder `"seogeo"`) und beides unter `~/.meixner-toolkit/audits/<slug>/<JJJJ-MM-TT>-seogeo.*` ablegen + in `kunden/<slug>.json → audits` eintragen. Daraus erzeugt `/kundenbericht` die gebrandete Kundenversion.
+Zusätzlich **`seo-audit.json`** schreiben (Schema: Skill `kundenbericht`, Datei `references/audit-schema.md`; `typ: "seo"`, `"geo"` oder `"seogeo"`) und beides unter `~/.meixner-toolkit/audits/<slug>/<JJJJ-MM-TT>-seogeo.*` ablegen + in `kunden/<slug>.json → audits` eintragen. Daraus erzeugt `/meixner-toolkit:kundenbericht` die gebrandete Kundenversion.
 
 **Vor dem Senden – Selbstprüfung:** Bereichsnamen aus der festen Liste (`../kundenbericht/references/audit-schema.md`) · Scorecard führt alle geprüften Bereiche in fester Reihenfolge, auch die sauberen · Scorecard-Zahlen = Anzahl Findings je Bereich · IDs eindeutig · jedes Finding hat einen Nachweis · Quellen verlinkt · Namen, Adressen und Zahlen gegen die Rohdaten geprüft · zeitkritische Aussagen (Bot-Namen, Google-Features, Schwellenwerte) bei Zweifel in offiziellen Quellen verifiziert (Google Search Central, web.dev, Bot-Seiten der Anbieter).
 

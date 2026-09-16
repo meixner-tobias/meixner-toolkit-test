@@ -1,6 +1,6 @@
 ---
 name: launch
-description: Go-Live-Abnahme für neue oder umgezogene Websites – prüft Weiterleitungen (alte Domains, www/https), noindex- und robots-Reste, Sitemap, 404, SSL, Rechtsseiten, Formulare, Consent und Tracking und liefert ein Abnahmeprotokoll. Nutzen bei /launch, "Website geht live", "Go-Live Check", "Relaunch prüfen", "Domain-Umzug prüfen".
+description: Go-Live-Abnahme für neue oder umgezogene Websites – prüft Weiterleitungen (alte Domains, www/https), noindex- und robots-Reste, Sitemap, 404, SSL, Rechtsseiten, Formulare, Consent und Tracking und liefert ein Abnahmeprotokoll. Nutzen bei /meixner-toolkit:launch, "Website geht live", "Go-Live Check", "Relaunch prüfen", "Domain-Umzug prüfen".
 disable-model-invocation: true
 ---
 
@@ -13,7 +13,7 @@ Rolle: erfahrener Web-Entwickler, der Livegänge abnimmt. Prüft misstrauisch, b
 3. Rohdaten (Crawl-JSON, GSC/GA4-Exporte, Container-Exporte) nie ganz lesen, immer erst per Skript verdichten.
 4. Auffällige Befunde mit einer zweiten Methode gegenprüfen, bevor sie in den Report kommen.
 5. Fragen bündeln (eine Runde, max. 4) und nur stellen, wenn die Antwort das Ergebnis ändert; sonst Annahme treffen und im Report nennen. Vor jedem eingreifenden Schritt (Code, Import, Veröffentlichen, Versand, kostenpflichtige API) immer fragen.
-# /launch – Go-Live-Abnahme
+# /meixner-toolkit:launch – Go-Live-Abnahme
 
 Ziel: Fehler finden, die beim Livegang typischerweise passieren (Staging-Reste, 302 statt 301, noindex, fehlende Search-Console-Meldung), bevor Kunde oder Google sie merken.
 
@@ -31,11 +31,11 @@ Für Umzüge mit geänderten Pfaden: alte URL-Liste (GSC-Export oder alte Sitema
 
 ## 3. Weitere Prüfungen
 - **Tracking & Consent** (falls eingerichtet): `consent_test.mjs` aus dem Skill `tracking-audit` ausführen (Pfad: `${CLAUDE_SKILL_DIR}/../tracking-audit/scripts/consent_test.mjs`).
-- **SEO-Kurzcheck**: `/seogeo quick <url>`-Logik für Titles, H1, strukturierte Daten, Performance (PSI-Key). Ist SiteOne Crawler installiert, zusätzlich `siteone.py` aus dem Skill `seogeo` laufen lassen – findet 404, Weiterleitungen, fehlende Meta-Angaben und Security-Header über die ganze Seite.
+- **SEO-Kurzcheck**: `/meixner-toolkit:seogeo quick <url>`-Logik für Titles, H1, strukturierte Daten, Performance (PSI-Key). Ist SiteOne Crawler installiert, zusätzlich `siteone.py` aus dem Skill `seogeo` laufen lassen – findet 404, Weiterleitungen, fehlende Meta-Angaben und Security-Header über die ganze Seite.
 - **Formulare**: Mit Tobias abstimmen, dann **ein** Testversand mit eindeutig markierten Testdaten (z. B. „TEST – bitte ignorieren“) – nur nach ausdrücklicher Freigabe, weil ein Formular absenden eine Aktion nach außen ist. Eingang der Mail, Danke-Seite, Conversion-Event prüfen.
 - **Manuell (Checkliste für Tobias)**: Search Console – Property verifiziert, Sitemap eingereicht, bei Domainwechsel „Adressänderung“; Bing Webmaster Tools; Google-Unternehmensprofil-Website-Link; externe Profile auf neue URL; Backups und Update-Plan; Uptime-Monitoring; E-Mail-Zustellung (SPF/DKIM/DMARC) falls Mails über die Domain gehen; Staging-Umgebung geschützt (Passwort/noindex).
 
 ## 4. Abnahmeprotokoll
 `launch-check.md` + `launch-audit.json` (Schema und feste Bereichsnamen: Skill `kundenbericht` → `references/audit-schema.md`, `typ: "launch"`; eigene Findings mit `GOLIVE-` → Bereich **Technik**), Ablage unter `~/.meixner-toolkit/audits/<slug>/`, Eintrag in `kunden/<slug>.json`.
 Struktur: Status (✅ bereit / ⚠️ bereit mit offenen Punkten / ❌ nicht bereit) · Kritisch/Hoch zuerst mit Fix · manuelle Checkliste mit Häkchen · Nachweise (Redirect-Ketten, Statuscodes).
-Fixes nur nach Freigabe (bei Code-Zugriff wie im `seogeo`-Fix-Modus). Auf Wunsch `/kundenbericht` als Abnahmebericht für den Kunden. Recheck nach 7 Tagen vorschlagen (Indexierung, 404 in der Search Console).
+Fixes nur nach Freigabe (bei Code-Zugriff wie im `seogeo`-Fix-Modus). Auf Wunsch `/meixner-toolkit:kundenbericht` als Abnahmebericht für den Kunden. Recheck nach 7 Tagen vorschlagen (Indexierung, 404 in der Search Console).
