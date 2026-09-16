@@ -1,0 +1,42 @@
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.10" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+
+      - name: Python-Syntax
+        run: python -m compileall -q skills lib tests
+
+      - name: JSON validieren
+        run: |
+          for f in $(find . -name '*.json' -not -path './node_modules/*'); do
+            python -c "import json,sys;json.load(open('$f',encoding='utf-8'))" || exit 1
+          done
+
+      - name: Node-Abhaengigkeiten (reproduzierbar)
+        run: npm ci --no-audit --no-fund
+
+      - name: Node-Syntax
+        run: for f in $(find skills lib tests -name '*.mjs'); do node --check "$f" || exit 1; done
+
+      - name: Playwright Chromium installieren
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser-Sicherheitsgrenzen
+        run: node tests/browser_security.mjs
+
+      - name: Regressionstests
+        run: python tests/run_tests.py
+        env:
+          CLAUDE_PLUGIN_ROOT: ${{ github.workspace }}
+
+      - name: npm audit (nur Information)
+        run: npm audit --audit-level=high || true
+        continue-on-error: true

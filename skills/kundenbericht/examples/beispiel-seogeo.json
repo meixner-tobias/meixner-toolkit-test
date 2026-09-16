@@ -1,0 +1,126 @@
+{
+  "typ": "seogeo",
+  "kunde": "Praxis Muster",
+  "ansprechpartner": "Frau Muster",
+  "domain": "https://www.beispiel-praxis.de",
+  "datum": "2026-09-11",
+  "umfang": "14 Seiten, Quelltext und Websuche",
+  "zusammenfassung": "Technisch sauber gebaut, aber noch schwer zu finden.",
+  "scorecard": [
+    {
+      "bereich": "Technik",
+      "status": "mittel",
+      "anzahl": 2
+    },
+    {
+      "bereich": "Inhalte",
+      "status": "kritisch",
+      "anzahl": 3
+    },
+    {
+      "bereich": "KI-Suche",
+      "status": "mittel",
+      "anzahl": 2
+    },
+    {
+      "bereich": "Recht & Einwilligung",
+      "status": "gut",
+      "anzahl": 0
+    },
+    {
+      "bereich": "Ladezeit",
+      "status": "nicht_geprueft",
+      "anzahl": 0
+    }
+  ],
+  "findings": [
+    {
+      "id": "TECH-01",
+      "bereich": "Technik",
+      "prioritaet": "hoch",
+      "titel": "Der Umzug von der alten Domain ist nicht abgeschlossen",
+      "problem": "Ihre frühere Adresse leitet Besucher zwar weiter, aber nur als vorübergehende Umleitung.",
+      "auswirkung": "Google hält deshalb an der alten Adresse fest, und das Vertrauen, das sie über Jahre aufgebaut hat, kommt bei der neuen Seite nur verzögert an.",
+      "massnahme": "Weiterleitung auf dauerhaft (301) umstellen und den Umzug in der Search Console melden.",
+      "aufwand": "S",
+      "nachweis": "Aufruf der alten Adresse: Antwort 302 (vorübergehend) statt 301, geprüft am 11.09.2026 mit zwei unabhängigen Abrufen."
+    },
+    {
+      "id": "ONPAGE-01",
+      "bereich": "Inhalte",
+      "prioritaet": "hoch",
+      "titel": "Google erfährt auf der Startseite nicht, was Sie anbieten",
+      "problem": "Im Seitentitel, also der Zeile, die Google in den Suchergebnissen zeigt, stehen weder Ihr Name noch Ihre Leistung.",
+      "auswirkung": "Wer nach Ihnen oder Ihrem Angebot sucht, bekommt Ihre Seite dadurch seltener angezeigt.",
+      "massnahme": "Titel mit Name und Kernleistung neu formulieren.",
+      "aufwand": "S",
+      "nachweis": "Seitentitel der Startseite: „Startseite“ (10 Zeichen), ausgelesen aus dem Quelltext und im Google-Ergebnis bestätigt."
+    },
+    {
+      "id": "CONT-01",
+      "bereich": "Inhalte",
+      "prioritaet": "hoch",
+      "titel": "Es fehlen Inhalte, über die neue Patientinnen Sie finden",
+      "problem": "Die Seite stellt Ihre Angebote vor, beantwortet aber keine der Fragen, die Menschen vorher bei Google oder ChatGPT eingeben.",
+      "auswirkung": "Genau über solche Fragen finden Mitbewerberinnen gerade ihre Kundschaft.",
+      "massnahme": "Impulse zu eigenen Artikeln ausbauen.",
+      "aufwand": "L",
+      "nachweis": "14 geprüfte Seiten, davon 0 mit einer Frage als Überschrift; in den Suchergebnissen zu den fünf naheliegenden Fragen erscheinen ausschließlich andere Anbieter."
+    },
+    {
+      "id": "TECH-02",
+      "bereich": "Technik",
+      "prioritaet": "mittel",
+      "titel": "Eine Seite ist nirgends verlinkt",
+      "problem": "Eine Unterseite ist nicht über das Menü erreichbar.",
+      "auswirkung": "Besucher und Suchmaschinen finden sie kaum.",
+      "massnahme": "In Menü oder Fußzeile aufnehmen.",
+      "aufwand": "S",
+      "nachweis": "Im Crawl über 14 Seiten steht die Seite /angebot-b in keiner internen Verlinkung; erreichbar war sie nur über die Sitemap."
+    },
+    {
+      "id": "GEO-01",
+      "bereich": "KI-Suche",
+      "prioritaet": "mittel",
+      "titel": "Ihre Angaben im Netz passen nicht zusammen",
+      "problem": "In Verzeichnissen stehen noch alter Name und alte Adresse.",
+      "auswirkung": "KI-Assistenten können Sie dadurch schlechter eindeutig zuordnen.",
+      "massnahme": "Einträge aktualisieren und verknüpfen.",
+      "aufwand": "M",
+      "nachweis": "Abgleich von fünf Verzeichniseinträgen mit dem Impressum am 11.09.2026: in drei Einträgen alter Name, in zwei die alte Adresse."
+    },
+    {
+      "id": "GEO-02",
+      "bereich": "KI-Suche",
+      "prioritaet": "niedrig",
+      "titel": "Profile nicht verknüpft",
+      "problem": "Externe Profile sind nicht mit der Website verknüpft.",
+      "auswirkung": "Schwächeres Gesamtbild.",
+      "massnahme": "Verknüpfung ergänzen.",
+      "aufwand": "S"
+    },
+    {
+      "id": "CONT-02",
+      "bereich": "Inhalte",
+      "prioritaet": "mittel",
+      "titel": "Angebot beworben, aber nicht verfügbar",
+      "problem": "Das kostenlose Geschenk ist noch nicht fertig.",
+      "auswirkung": "Enttäuschte Erwartung beim ersten Kontakt.",
+      "massnahme": "Fertigstellen oder kennzeichnen.",
+      "aufwand": "S"
+    }
+  ],
+  "positiv": [
+    "Die Seite lädt schnell und ist sauber programmiert.",
+    "Ihre Inhalte sind für Google und KI-Assistenten vollständig lesbar.",
+    "Es wird nichts ohne Einwilligung getrackt."
+  ],
+  "naechste_schritte": [
+    "Kurzes Gespräch",
+    "Umsetzung der dringenden Punkte"
+  ],
+  "nicht_geprueft": [
+    "Ladezeit-Messung",
+    "Rankings und Klicks"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "container_name": "Shop – Web (E-Commerce, GTM4WP)",
+  "default_currency": "EUR",
+  "ga4": {
+    "measurement_id": "G-XXXXXXXXXX"
+  },
+  "server_container_url": "https://www.shop.de/metrics",
+  "google_ads": {
+    "conversion_id": "AW-123456789",
+    "enhanced_conversions": true
+  },
+  "meta": {
+    "pixel_id": "123456789012345",
+    "browser_pixel": true
+  },
+  "events": [
+    {
+      "name": "view_item",
+      "ecommerce": true,
+      "meta_event": "ViewContent"
+    },
+    {
+      "name": "add_to_cart",
+      "ecommerce": true,
+      "meta_event": "AddToCart"
+    },
+    {
+      "name": "begin_checkout",
+      "ecommerce": true,
+      "meta_event": "InitiateCheckout"
+    },
+    {
+      "name": "purchase",
+      "ecommerce": true,
+      "ads_label": "XyZ123abc",
+      "meta_event": "Purchase"
+    }
+  ],
+  "consent": {
+    "mode": "advanced",
+    "update_event": "cookie_consent_update"
+  },
+  "architecture": "browser+server"
+}

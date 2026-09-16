@@ -1,0 +1,13 @@
+# Rohdaten und Kundenberichte gehören nicht in ein Repository
+crawl/
+*-raw.json
+crawl-summary.json
+consent-report.json
+launch-report.json
+*-website-check.html
+*-website-check.pdf
+gtm-*-import.json
+kunde-import.json
+node_modules/
+__pycache__/
+*.part

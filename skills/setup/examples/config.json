@@ -1,0 +1,48 @@
+{
+  "branding": {
+    "name": "Tobias Meixner",
+    "firma": "Tobias Meixner – Web & Tracking",
+    "website": "https://meixner-tobias.com",
+    "email": "contact@meixner-tobias.com",
+    "telefon": "",
+    "ort": "Würzburg",
+    "farbe": "",
+    "logo": "",
+    "unterschrift": ""
+  },
+  "angebot": {
+    "leistungen": [
+      {
+        "name": "GTM & GA4 Setup",
+        "preis": "ab 390 €",
+        "typen": [
+          "tracking",
+          "launch"
+        ]
+      },
+      {
+        "name": "Website-Umsetzung",
+        "preis": "ab 890 €"
+      },
+      {
+        "name": "Sorglos-Betreuung",
+        "preis": "ab 49 €/Monat"
+      }
+    ],
+    "cta": "Kostenloses Erstgespräch vereinbaren",
+    "cta_link": "https://meixner-tobias.com"
+  },
+  "standards": {
+    "cmp": "cookiebot",
+    "consent_mode": "basic",
+    "sgtm_hosting": "stape",
+    "sgtm_domain": "same-origin",
+    "backup_gclid": true,
+    "sprache": "de",
+    "recherche_budget": "normal"
+  },
+  "master_container": {
+    "web": "",
+    "server": ""
+  }
+}

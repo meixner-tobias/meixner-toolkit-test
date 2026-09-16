@@ -1,0 +1,41 @@
+{
+  "container_name": "Kunde GmbH – Web (Lead-Gen)",
+  "default_currency": "EUR",
+  "ga4": {
+    "measurement_id": "G-XXXXXXXXXX"
+  },
+  "server_container_url": "https://www.kunde.de/metrics",
+  "google_ads": {
+    "conversion_id": "AW-123456789",
+    "enhanced_conversions": true
+  },
+  "meta": {
+    "pixel_id": "123456789012345",
+    "browser_pixel": true
+  },
+  "form_listeners": [
+    "cf7"
+  ],
+  "lead_event": "generate_lead",
+  "events": [
+    {
+      "name": "generate_lead",
+      "params": {
+        "form_id": "form_id"
+      },
+      "ads_label": "AbCdEfGhIjk",
+      "value": 50,
+      "meta_event": "Lead"
+    },
+    {
+      "name": "click_phone",
+      "ga4": true,
+      "meta_event": "Contact"
+    }
+  ],
+  "consent": {
+    "mode": "advanced",
+    "update_event": "cookie_consent_update"
+  },
+  "architecture": "browser+server"
+}

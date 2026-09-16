@@ -1,0 +1,20 @@
+{
+  "name": "Beispiel GmbH",
+  "slug": "beispiel-gmbh",
+  "domain": "https://www.beispiel.de",
+  "alte_domains": ["https://beispiel-alt.de"],
+  "cms": "wordpress",
+  "zielmarkt": "online DACH",
+  "ids": {
+    "gtm_web": "GTM-XXXXXXX",
+    "gtm_server": "GTM-YYYYYYY",
+    "ga4": "G-XXXXXXXXXX",
+    "google_ads": "AW-123456789",
+    "meta_pixel": "123456789012345",
+    "stape_domain": "https://www.beispiel.de/metrics"
+  },
+  "cmp": "cookiebot",
+  "betreuung": "sorglos",
+  "notizen": "",
+  "audits": []
+}
