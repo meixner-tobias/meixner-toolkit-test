@@ -1,0 +1,17 @@
+﻿{
+  "name": "meixner-tools",
+  "owner": {
+    "name": "Tobias Meixner"
+  },
+  "description": "Meixner Toolkit for SEO, GEO, tracking audits, GTM and launch checks.",
+  "plugins": [
+    {
+      "name": "meixner-toolkit",
+      "source": {
+        "source": "github",
+        "repo": "meixner-tobias/meixner-toolkit-test"
+      },
+      "description": "Professional SEO, GEO, tracking, GTM and launch toolkit."
+    }
+  ]
+}
